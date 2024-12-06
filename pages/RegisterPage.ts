@@ -53,20 +53,16 @@ export class RegisterPage{
     
 
     async fillUserInformation(day: string, month: string, year: string,country :string): Promise<void> {
-        
-        // Formu doldurma işlemleri
         await this.idGender.click();
         await this.passwordBox.fill(FakeData.password);
-        await this.dayDD.selectOption(day); // Dinamik gün
-        await this.monthDD.selectOption(month); // Dinamik ay
-        await this.yearDD.selectOption(year); // Dinamik yıl
+        await this.dayDD.selectOption(day); 
+        await this.monthDD.selectOption(month); 
+        await this.yearDD.selectOption(year); 
         await this.newsletterBox.check();
         await this.offersBox.check();
       
-        // Gerekirse görünüme kaydır
         await this.zipCodeBox.scrollIntoViewIfNeeded();
       
-        // Diğer kullanıcı bilgilerini doldurma
         await this.firstNameBox.fill(FakeData.firstName);
         await this.lastNameBox.fill(FakeData.lastName);
         await this.addressBox.fill(FakeData.address);
