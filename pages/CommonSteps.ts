@@ -16,4 +16,10 @@ export class CommonSteps {
     const element = this.page.locator(`text=${text}`);
     await expect(element).toBeVisible();
   }
+
+  async verifyNavigateExpectedPage(expectedUrl : string):Promise<void> {
+    const expectedHomePageUrl = expectedUrl;
+    const actualHomePageUrl = await this.page.url();
+    await expect(actualHomePageUrl).toBe(expectedHomePageUrl);
+  }
 }

@@ -26,7 +26,7 @@ test.afterAll('Close Page',async({page})=>{
     await page.close();
 })
 
-test('Test Case 2: Login User with correct email and password', async ({ page,homePage,loginPage,commonSteps }) => {
+test('Test Case 4: Logout User', async ({ page,homePage,loginPage,commonSteps }) => {
 
   //1. Navigate to url 'http://automationexercise.com'
   await homePage.navigateHomePage();
@@ -49,11 +49,11 @@ test('Test Case 2: Login User with correct email and password', async ({ page,ho
   //7. Verify that 'Logged in as username' is visible
   await commonSteps.verifyTextVisible(" Logged in as ");
 
-  //8. Click 'Delete Account' button
-  await commonSteps.clickWithText(" Delete Account");
+  //8. Click 'Logout' button
+  await commonSteps.clickWithText(" Logout");
   
-  //9. Verify that 'ACCOUNT DELETED!' is visible 
-  await commonSteps.verifyTextVisible("Account Deleted!");
+  //9. Verify that user is navigated to login page
+  await commonSteps.verifyNavigateExpectedPage('https://automationexercise.com/login');
   
 
 });

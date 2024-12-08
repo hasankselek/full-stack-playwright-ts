@@ -11,6 +11,8 @@ export class LoginPage {
   private emailBox1: Locator;
   private passwordBox: Locator;
   private loginButton: Locator;
+  private wrongAccError: Locator;
+  private emailExistError: Locator;
 
 
   constructor(page: Page) {
@@ -22,6 +24,8 @@ export class LoginPage {
     this.emailBox1 = page.locator("input[data-qa='login-email']");
     this.passwordBox = page.locator("input[placeholder='Password']");
     this.loginButton = page.locator("//button[normalize-space()='Login']");
+    this.wrongAccError = page.locator("//p[normalize-space()='Your email or password is incorrect!']");
+    this.emailExistError = page.locator("//p[normalize-space()='Email Address already exist!']");
   }
 
   async login(email : string, password : string){
@@ -34,9 +38,9 @@ export class LoginPage {
     await expect(this.newUserSignUpText).toBeVisible();
   }
   
-  async firstRegister(): Promise<void>{
-    await this.nameBox.fill(FakeData.firstName+" "+FakeData.lastName);
-    await this.emailBox2.fill(FakeData.email);
+  async firstRegister(mail : string, firstname : string, lastname : string): Promise<void>{
+    await this.nameBox.fill(firstname+" "+lastname);
+    await this.emailBox2.fill(mail);
   }
 
   async clickSignUp():Promise<void>{
@@ -46,4 +50,20 @@ export class LoginPage {
   async clickLogin():Promise<void>{
     await this.loginButton.click();
   }
+
+  async verifyErrorMessage():Promise<void>{
+    await expect(this.wrongAccError).toBeVisible();
+  }
+
+  async verifyEmailErrorMessage(errorMessage: string): Promise<void> {
+    
+    const errorAlreadyEmailMessage = await this.emailExistError.textContent();
+    
+    if (errorAlreadyEmailMessage !== null) {
+      await expect(errorAlreadyEmailMessage.trim()).toBe(errorMessage);
+    } else {
+      throw new Error('Email error message is not visible or null.');
+    }
+  }
+
 }

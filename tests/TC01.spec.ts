@@ -1,4 +1,5 @@
 import { test } from '../fixtures/customFixtures';
+import { FakeData } from '../utils/fakeData';
 
 test('Test Case 1: Register User', async ({ page,homePage,loginPage,registerPage,commonSteps }) => {
 
@@ -11,7 +12,7 @@ test('Test Case 1: Register User', async ({ page,homePage,loginPage,registerPage
   await loginPage.verifyLoginPageDisplayed();
 
   //5-6 Enter name and email address
-  await loginPage.firstRegister();
+  await loginPage.firstRegister(FakeData.email,FakeData.firstName,FakeData.lastName);
   await loginPage.clickSignUp();
 
   //7. Verify that 'ENTER ACCOUNT INFORMATION' is visible
