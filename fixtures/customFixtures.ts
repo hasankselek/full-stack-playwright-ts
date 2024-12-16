@@ -4,6 +4,7 @@ import { LoginPage } from '../pages/LoginPage';
 import { RegisterPage } from '../pages/RegisterPage';
 import { CommonSteps } from '../pages/CommonSteps';
 
+
 type CustomFixtures = {
   homePage: HomePage;
   loginPage: LoginPage;

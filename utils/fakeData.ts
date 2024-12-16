@@ -10,5 +10,7 @@ export const FakeData = {
     city: faker.location.city(),
     state: faker.location.state(),
     zipcode: faker.location.zipCode(),
+    subject : faker.lorem.lines(),
+    message : faker.lorem.paragraph()
  };
   

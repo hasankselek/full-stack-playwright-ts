@@ -5,7 +5,7 @@ export default defineConfig({
   timeout: 30000,
   retries: 1,
   use: {
-    headless: true,
+    headless: false,
     baseURL: 'http://automationexercise.com',
     trace: 'on',
     viewport: { width: 1920, height: 1080 },
