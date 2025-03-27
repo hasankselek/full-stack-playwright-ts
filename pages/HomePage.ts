@@ -1,26 +1,28 @@
 import { Page, Locator, expect } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class HomePage {
-  private page: Page;
-  private homePageIcon: Locator;
-  private loginButton: Locator;
+export class HomePage extends BasePage{
+  readonly homePageIcon: Locator;
+  readonly loginButton: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.homePageIcon = page.locator("//img[@alt='Website for automation practice']");
     this.loginButton = page.locator("//a[normalize-space()='Signup / Login']");
   }
 
-  async navigateHomePage(): Promise<void>{
+  async navigateHomePage(){
     await this.page.goto("/",{waitUntil:"commit"});
-
+    return this;
   }
 
-  async verifyHomePageIcon(): Promise<void> {
-    await expect(this.homePageIcon).toBeVisible();
+  async verifyHomePageIcon(){
+    await this.isElementVisible(this.homePageIcon)
+    return this;
   }
 
-  async clickLoginButton(): Promise<void> {
-    await this.loginButton.click();
+  async clickLoginButton(){
+    await this.clickElement(this.loginButton)
+    return this;
   }
 }

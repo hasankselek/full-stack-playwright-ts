@@ -3,6 +3,8 @@ import { HomePage } from '../pages/HomePage';
 import { LoginPage } from '../pages/LoginPage';
 import { RegisterPage } from '../pages/RegisterPage';
 import { CommonSteps } from '../pages/CommonSteps';
+import { APIHelper } from '../utils/apiHelper';
+import { TestConfig } from '../config/testConfig';
 
 
 type CustomFixtures = {
@@ -10,25 +12,35 @@ type CustomFixtures = {
   loginPage: LoginPage;
   registerPage: RegisterPage;
   commonSteps: CommonSteps;
+  apiHelper: APIHelper;
+  testConfig: TestConfig;
+  authenticatedPage: Page;
 };
 
 const test = baseTest.extend<CustomFixtures>({
 
-  commonSteps: async ({ page }, use) => {
-    const commonSteps = new CommonSteps(page);
-    await use(commonSteps);
-  },
   homePage: async ({ page }, use) => {
-    const homePage = new HomePage(page);
-    await use(homePage);
+    await use(new HomePage(page));
   },
   loginPage: async ({ page }, use) => {
-    const loginPage = new LoginPage(page);
-    await use(loginPage);
+    await use(new LoginPage(page));
   },
   registerPage: async ({ page }, use) => {
-    const registerPage = new RegisterPage(page);
-    await use(registerPage);
+    await use(new RegisterPage(page));
+  },
+
+  apiHelper: async ({}, use) => {
+    const config = TestConfig.getInstance();
+    const apiHelper = new APIHelper(config.getApiBaseUrl());
+    await apiHelper.init();
+    await use(apiHelper);
+    await apiHelper.dispose();
+  },
+
+  // TestConfig fixture
+  testConfig: async ({}, use) => {
+    const config = TestConfig.getInstance();
+    await use(config);
   },
 });
 

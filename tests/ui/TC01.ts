@@ -1,7 +1,9 @@
-import { test } from '../fixtures/customFixtures';
-import { FakeData } from '../utils/fakeData';
+import { TestData } from '@/fixtures/test-data';
+import { test, expect } from '../../fixtures/customFixtures';
 
-test('Register User', async ({ page,homePage,loginPage,registerPage,commonSteps }) => {
+test('Register User', async ({page,homePage,loginPage,registerPage}) => {
+
+  const randomUser = TestData.generateRandomUser();
 
   //1-2 Navigate to url 'http://automationexercise.com' and verify that home page is visible successfully
   await homePage.navigateHomePage();
@@ -12,7 +14,7 @@ test('Register User', async ({ page,homePage,loginPage,registerPage,commonSteps 
   await loginPage.verifyLoginPageDisplayed();
 
   //5-6 Enter name and email address
-  await loginPage.firstRegister(FakeData.email,FakeData.firstName,FakeData.lastName);
+  await loginPage.firstRegister();
   await loginPage.clickSignUp();
 
   //7. Verify that 'ENTER ACCOUNT INFORMATION' is visible
@@ -22,24 +24,23 @@ test('Register User', async ({ page,homePage,loginPage,registerPage,commonSteps 
   //9. Select checkbox 'Sign up for our newsletter!'
   //10. Select checkbox 'Receive special offers from our partners!'
   //11. Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number
-  await registerPage.fillUserInformation('2','9','1996',"India"); 
+  await registerPage.fillUserInformation(); 
 
   //12. Click 'Create Account button'
-  await commonSteps.clickWithText('Create Account');
+  await registerPage.clickWithText('Create Account');
 
   //13-14 Verify that 'ACCOUNT CREATED!' is visible and click 'Continue' button
   await registerPage.verifyAccountCreated();
   await registerPage.clickContinue();
 
   //15-16 Verify that 'Logged in as username' is visible and Click 'Delete Account' button
-  await commonSteps.verifyTextVisible(" Logged in as ");
-  await commonSteps.clickWithText(" Delete Account");
+  await registerPage.verifyTextVisible(" Logged in as ");
+  await registerPage.clickWithText(" Delete Account");
   
   //17. Verify that 'ACCOUNT DELETED!' is visible and click 'Continue' button
-  await commonSteps.verifyTextVisible("Account Deleted!");
-  await commonSteps.clickWithText('Continue');
+  await registerPage.verifyTextVisible("Account Deleted!");
+  await registerPage.clickWithText('Continue');
 
-  await page.close();
 
 });
 
@@ -58,7 +59,7 @@ test('Register User with existing email', async ({ homePage,loginPage }) => {
   await loginPage.verifyLoginPageDisplayed();
 
   //5. Enter name and already registered email address
-  await loginPage.firstRegister('asdasdas@gmail.com','Hasan','Küçükselek');
+  await loginPage.firstRegister();
 
   //6. Click 'Signup' button
   await loginPage.clickSignUp();
@@ -69,9 +70,3 @@ test('Register User with existing email', async ({ homePage,loginPage }) => {
 
 });
 
-
-
-test.afterAll('Close Page',async({page})=>{
-    
-    await page.close();
-})

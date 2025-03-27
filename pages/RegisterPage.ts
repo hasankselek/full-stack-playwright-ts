@@ -1,31 +1,31 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { FakeData } from '../utils/fakeData';
+import { BasePage } from './BasePage';
+import { TestData } from '@/fixtures/test-data';
 
-export class RegisterPage{
+export class RegisterPage extends BasePage{
 
-    private page: Page;
-    private enterAccountInformationText: Locator;
-    private idGender: Locator;
-    private passwordBox: Locator;
-    private dayDD: Locator;
-    private monthDD: Locator;
-    private yearDD: Locator;
-    private newsletterBox: Locator;
-    private offersBox: Locator;
-    private firstNameBox: Locator;
-    private lastNameBox: Locator;
-    private addressBox: Locator;
-    private countryDD: Locator;
-    private stateBox: Locator;
-    private cityBox: Locator;
-    private zipCodeBox: Locator;
-    private mobileNumberBox: Locator;
-    private createAccountButton: Locator;
-    private accountCreatedText: Locator;
-    private continueButton: Locator;
+    private readonly enterAccountInformationText: Locator;
+    private readonly idGender: Locator;
+    private readonly passwordBox: Locator;
+    private readonly dayDD: Locator;
+    private readonly monthDD: Locator;
+    private readonly yearDD: Locator;
+    private readonly newsletterBox: Locator;
+    private readonly offersBox: Locator;
+    private readonly firstNameBox: Locator;
+    private readonly lastNameBox: Locator;
+    private readonly addressBox: Locator;
+    private readonly countryDD: Locator;
+    private readonly stateBox: Locator;
+    private readonly cityBox: Locator;
+    private readonly zipCodeBox: Locator;
+    private readonly mobileNumberBox: Locator;
+    private readonly createAccountButton: Locator;
+    private readonly accountCreatedText: Locator;
+    private readonly continueButton: Locator;
 
     constructor(page : Page){
-        this.page = page;
+        super(page);
         this.enterAccountInformationText = page.locator("//b[normalize-space()='Enter Account Information']");
         this.idGender = page.locator("#id_gender1");
         this.passwordBox = page.locator("#password");
@@ -52,25 +52,28 @@ export class RegisterPage{
     }
     
 
-    async fillUserInformation(day: string, month: string, year: string,country :string): Promise<void> {
+    async fillUserInformation(): Promise<void> {
+
+        const validUser = TestData.getValidUser();
+
         await this.idGender.click();
-        await this.passwordBox.fill(FakeData.password);
-        await this.dayDD.selectOption(day); 
-        await this.monthDD.selectOption(month); 
-        await this.yearDD.selectOption(year); 
+        await this.passwordBox.fill(validUser.password);
+        await this.dayDD.selectOption(validUser.day); 
+        await this.monthDD.selectOption(validUser.month); 
+        await this.yearDD.selectOption(validUser.year); 
         await this.newsletterBox.check();
         await this.offersBox.check();
       
         await this.zipCodeBox.scrollIntoViewIfNeeded();
       
-        await this.firstNameBox.fill(FakeData.firstName);
-        await this.lastNameBox.fill(FakeData.lastName);
-        await this.addressBox.fill(FakeData.address);
-        await this.countryDD.selectOption(country);
-        await this.stateBox.fill(FakeData.state);
-        await this.cityBox.fill(FakeData.city);
-        await this.zipCodeBox.fill(FakeData.zipcode);
-        await this.mobileNumberBox.fill(FakeData.phone);
+        await this.firstNameBox.fill(validUser.firstName);
+        await this.lastNameBox.fill(validUser.lastName);
+        await this.addressBox.fill(validUser.address);
+        await this.countryDD.selectOption(validUser.country);
+        await this.stateBox.fill(validUser.state);
+        await this.cityBox.fill(validUser.city);
+        await this.zipCodeBox.fill(validUser.zipcode);
+        await this.mobileNumberBox.fill(validUser.phone);
 
         await this.page.evaluate(() => {
             window.scrollTo(0, document.body.scrollHeight);

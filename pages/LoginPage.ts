@@ -1,22 +1,22 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { FakeData } from '../utils/fakeData';
+import { BasePage } from './BasePage';
+import { TestData } from '@/fixtures/test-data';
 
-export class LoginPage {
+export class LoginPage extends BasePage{
 
-  private page: Page;
-  private newUserSignUpText: Locator;
-  private nameBox: Locator;
-  private emailBox2: Locator;
-  private signUpButton: Locator;
-  private emailBox1: Locator;
-  private passwordBox: Locator;
-  private loginButton: Locator;
-  private wrongAccError: Locator;
-  private emailExistError: Locator;
+  readonly newUserSignUpText: Locator;
+  readonly nameBox: Locator;
+  readonly emailBox2: Locator;
+  readonly signUpButton: Locator;
+  readonly emailBox1: Locator;
+  readonly passwordBox: Locator;
+  readonly loginButton: Locator;
+  readonly wrongAccError: Locator;
+  readonly emailExistError: Locator;
 
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.newUserSignUpText = page.locator("//h2[normalize-space()='New User Signup!']");
     this.nameBox = page.locator("//input[@placeholder='Name']");
     this.emailBox2 = page.locator("//input[@data-qa='signup-email']");
@@ -29,22 +29,26 @@ export class LoginPage {
   }
 
   async login(email : string, password : string){
-    await this.emailBox1.fill(email)
-    await this.passwordBox.fill(password)
+    await this.typeText(this.emailBox1,email)
+    await this.typeText(this.passwordBox,password)
+    return this
   }
 
-  
-  async verifyLoginPageDisplayed(): Promise<void> {
-    await expect(this.newUserSignUpText).toBeVisible();
+  async verifyLoginPageDisplayed(){
+    await this.isElementVisible(this.newUserSignUpText)
+    return this;
   }
   
-  async firstRegister(mail : string, firstname : string, lastname : string): Promise<void>{
-    await this.nameBox.fill(firstname+" "+lastname);
-    await this.emailBox2.fill(mail);
+  async firstRegister(){
+    const validUser = TestData.getValidUser()
+    await this.typeText(this.nameBox,validUser.firstName+" "+validUser.lastName)
+    await this.typeText(this.emailBox2,validUser.email)
+    return this
   }
 
-  async clickSignUp():Promise<void>{
+  async clickSignUp(){
     await this.signUpButton.click();
+    return this
   }
   
   async clickLogin():Promise<void>{
