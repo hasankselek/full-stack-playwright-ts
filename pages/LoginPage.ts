@@ -31,24 +31,26 @@ export class LoginPage extends BasePage{
   async login(email : string, password : string){
     await this.typeText(this.emailBox1,email)
     await this.typeText(this.passwordBox,password)
-    return this
   }
 
   async verifyLoginPageDisplayed(){
     await this.isElementVisible(this.newUserSignUpText)
-    return this;
   }
   
-  async firstRegister(){
-    const validUser = TestData.getValidUser()
+  async registerWithValidUser(){
+    const validUser = TestData.generateRandomUser()
     await this.typeText(this.nameBox,validUser.firstName+" "+validUser.lastName)
-    await this.typeText(this.emailBox2,validUser.email)
-    return this
+    await this.typeText(this.emailBox2,validUser.email) 
+  }
+
+  async registerWithInvalidUser(){
+    const invalidUser = TestData.getInvalidUser()
+    await this.typeText(this.nameBox,invalidUser.firstName+" "+invalidUser.lastName)
+    await this.typeText(this.emailBox2,invalidUser.email) 
   }
 
   async clickSignUp(){
     await this.signUpButton.click();
-    return this
   }
   
   async clickLogin():Promise<void>{

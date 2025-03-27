@@ -17,7 +17,7 @@ export class TestData {
       state: 'validState',
       zipcode: '121212',
       country: 'Canada',
-      day: '02',
+      day: '2',
       month: 'September',
       year: '1996'
     };
@@ -29,8 +29,8 @@ export class TestData {
   static getInvalidUser(): User {
     return {
       password: 'wrongpassword',
-      email: 'invalid@example.com',
-      firstName: 'Invalid',
+      email: 'test@test.com',
+      firstName: 'test',
       lastName: 'User',
       phone: '131212',
       address: 'invalidAddress',
@@ -38,7 +38,7 @@ export class TestData {
       state: 'invalidState',
       zipcode: '121212',
       country: 'Canada',
-      day: '02',
+      day: '2',
       month: 'September',
       year: '1996'
     };
@@ -59,10 +59,10 @@ export class TestData {
       city: faker.location.city(),
       state: faker.location.state(),
       zipcode: faker.location.zipCode(),
-      country: faker.location.country(),
-      day: '02',
-      month: 'September',
-      year: '1996'
+      country: 'Canada',
+      day: "2",
+      month: "September",
+      year: "1996"
     };
   }
 }

@@ -54,7 +54,7 @@ export class RegisterPage extends BasePage{
 
     async fillUserInformation(): Promise<void> {
 
-        const validUser = TestData.getValidUser();
+        const validUser = TestData.generateRandomUser();
 
         await this.idGender.click();
         await this.passwordBox.fill(validUser.password);

@@ -2,7 +2,6 @@ import { test as baseTest, Page, expect } from '@playwright/test';
 import { HomePage } from '../pages/HomePage';
 import { LoginPage } from '../pages/LoginPage';
 import { RegisterPage } from '../pages/RegisterPage';
-import { CommonSteps } from '../pages/CommonSteps';
 import { APIHelper } from '../utils/apiHelper';
 import { TestConfig } from '../config/testConfig';
 
@@ -11,7 +10,6 @@ type CustomFixtures = {
   homePage: HomePage;
   loginPage: LoginPage;
   registerPage: RegisterPage;
-  commonSteps: CommonSteps;
   apiHelper: APIHelper;
   testConfig: TestConfig;
   authenticatedPage: Page;

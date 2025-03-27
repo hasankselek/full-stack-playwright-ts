@@ -14,7 +14,7 @@ test('Register User', async ({page,homePage,loginPage,registerPage}) => {
   await loginPage.verifyLoginPageDisplayed();
 
   //5-6 Enter name and email address
-  await loginPage.firstRegister();
+  await loginPage.registerWithValidUser()
   await loginPage.clickSignUp();
 
   //7. Verify that 'ENTER ACCOUNT INFORMATION' is visible
@@ -59,7 +59,7 @@ test('Register User with existing email', async ({ homePage,loginPage }) => {
   await loginPage.verifyLoginPageDisplayed();
 
   //5. Enter name and already registered email address
-  await loginPage.firstRegister();
+  await loginPage.registerWithInvalidUser();
 
   //6. Click 'Signup' button
   await loginPage.clickSignUp();
