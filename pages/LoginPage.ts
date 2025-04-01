@@ -1,6 +1,7 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { TestData } from '@/fixtures/test-data';
+import { User } from '@/models/user';
 
 export class LoginPage extends BasePage{
 
@@ -13,6 +14,8 @@ export class LoginPage extends BasePage{
   readonly loginButton: Locator;
   readonly wrongAccError: Locator;
   readonly emailExistError: Locator;
+  readonly invalidMailPasswordError: Locator;
+  readonly existingMailError:Locator;
 
 
   constructor(page: Page) {
@@ -26,39 +29,39 @@ export class LoginPage extends BasePage{
     this.loginButton = page.locator("//button[normalize-space()='Login']");
     this.wrongAccError = page.locator("//p[normalize-space()='Your email or password is incorrect!']");
     this.emailExistError = page.locator("//p[normalize-space()='Email Address already exist!']");
+    this.invalidMailPasswordError = page.locator("//p[normalize-space()='Your email or password is incorrect!']");
+    this.existingMailError = page.locator("//p[normalize-space()='Email Address already exist!']");
   }
 
-  async login(email : string, password : string){
-    await this.typeText(this.emailBox1,email)
-    await this.typeText(this.passwordBox,password)
+  async loginWithCredential(user:User){
+    await this.typeText(this.emailBox1,user.email)
+    await this.typeText(this.passwordBox,user.password)
   }
 
   async verifyLoginPageDisplayed(){
     await this.isElementVisible(this.newUserSignUpText)
   }
   
-  async registerWithValidUser(){
-    const validUser = TestData.generateRandomUser()
-    await this.typeText(this.nameBox,validUser.firstName+" "+validUser.lastName)
-    await this.typeText(this.emailBox2,validUser.email) 
+  async registerWithValidUser(user:User){
+    await this.typeText(this.nameBox,user.firstName+" "+user.lastName)
+    await this.typeText(this.emailBox2,user.email) 
   }
 
-  async registerWithInvalidUser(){
-    const invalidUser = TestData.getInvalidUser()
-    await this.typeText(this.nameBox,invalidUser.firstName+" "+invalidUser.lastName)
-    await this.typeText(this.emailBox2,invalidUser.email) 
+  async registerWithInvalidUser(user:User){
+    await this.typeText(this.nameBox,user.firstName+" "+user.lastName)
+    await this.typeText(this.emailBox2,user.email) 
   }
 
   async clickSignUp(){
-    await this.signUpButton.click();
+    await this.clickElement(this.signUpButton)
   }
   
   async clickLogin():Promise<void>{
-    await this.loginButton.click();
+    await this.clickElement(this.loginButton)
   }
 
   async verifyErrorMessage():Promise<void>{
-    await expect(this.wrongAccError).toBeVisible();
+    await this.isElementVisible(this.wrongAccError)
   }
 
   async verifyEmailErrorMessage(errorMessage: string): Promise<void> {
@@ -72,4 +75,15 @@ export class LoginPage extends BasePage{
     }
   }
 
+  async verifyInvalidMailPasswordErrorMessageDisplayed(){
+    await this.assertElementContainsText(this.invalidMailPasswordError,"Your email or password is incorrect!")
+  }
+
+  async verifyLoginPage(){
+    await this.verifyNavigateExpectedPage("https://automationexercise.com/login")
+  }
+
+  async verifyExistingMailErrorMessageDisplayed(){
+    await this.assertElementContainsText(this.existingMailError,"Email Address already exist!")
+  }
 }

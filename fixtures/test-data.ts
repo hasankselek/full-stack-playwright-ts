@@ -1,4 +1,5 @@
 import { User } from '../models/user';
+import { Subject } from '../models/subject';
 import { faker } from '@faker-js/faker';
 
 export class TestData {
@@ -7,9 +8,9 @@ export class TestData {
    */
   static getValidUser(): User {
     return {
-      password: 'Password123!',
-      email: 'testuser@example.com',
-      firstName: 'Test',
+      password: 'test123.',
+      email: 'test123.@test.com',
+      firstName: 'validName',
       lastName: 'User',
       phone: '9999999999',
       address: 'validAddress',
@@ -63,6 +64,20 @@ export class TestData {
       day: "2",
       month: "September",
       year: "1996"
+    };
+  }
+
+  /**
+   * Generate random subject
+   */
+  static getContactMessage(): Subject {
+  
+    return {
+      name: faker.person.firstName(),
+      email: faker.internet.email(),
+      subject: faker.lorem.lines(),
+      message: faker.lorem.paragraph(),
+      filePath : "test-file/test-photo.jpeg"
     };
   }
 }

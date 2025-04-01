@@ -1,8 +1,10 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { logger } from '../utils/logger';
+import { TestData } from '@/fixtures/test-data';
 
 export class BasePage {
   constructor(protected page: Page) {}
+
 
   /**
    * Navigate to a specific URL
@@ -95,5 +97,9 @@ export class BasePage {
     const expectedHomePageUrl = expectedUrl;
     const actualHomePageUrl = await this.page.url();
     await expect(actualHomePageUrl).toBe(expectedHomePageUrl);
+  }
+
+  async uploadFile(locator: Locator, file: string) {
+    await locator.setInputFiles(file);
   }
 } 

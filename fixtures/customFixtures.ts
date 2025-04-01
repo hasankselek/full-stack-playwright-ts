@@ -4,12 +4,14 @@ import { LoginPage } from '../pages/LoginPage';
 import { RegisterPage } from '../pages/RegisterPage';
 import { APIHelper } from '../utils/apiHelper';
 import { TestConfig } from '../config/testConfig';
+import { ContactUsPage } from '@/pages/ContactUsPage';
 
 
 type CustomFixtures = {
   homePage: HomePage;
   loginPage: LoginPage;
   registerPage: RegisterPage;
+  contactUsPage: ContactUsPage;
   apiHelper: APIHelper;
   testConfig: TestConfig;
   authenticatedPage: Page;
@@ -25,6 +27,9 @@ const test = baseTest.extend<CustomFixtures>({
   },
   registerPage: async ({ page }, use) => {
     await use(new RegisterPage(page));
+  },
+  contactUsPage: async ({page},use) =>{
+    await use(new ContactUsPage(page));
   },
 
   apiHelper: async ({}, use) => {

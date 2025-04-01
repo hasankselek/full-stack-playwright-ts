@@ -1,6 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
-import { TestData } from '@/fixtures/test-data';
+import { User } from '@/models/user';
 
 export class RegisterPage extends BasePage{
 
@@ -52,28 +52,25 @@ export class RegisterPage extends BasePage{
     }
     
 
-    async fillUserInformation(): Promise<void> {
-
-        const validUser = TestData.generateRandomUser();
+    async fillUserInformation(user:User): Promise<void> {
+      
 
         await this.idGender.click();
-        await this.passwordBox.fill(validUser.password);
-        await this.dayDD.selectOption(validUser.day); 
-        await this.monthDD.selectOption(validUser.month); 
-        await this.yearDD.selectOption(validUser.year); 
+        await this.passwordBox.fill(user.password);
+        await this.dayDD.selectOption(user.day); 
+        await this.monthDD.selectOption(user.month); 
+        await this.yearDD.selectOption(user.year); 
         await this.newsletterBox.check();
         await this.offersBox.check();
-      
         await this.zipCodeBox.scrollIntoViewIfNeeded();
-      
-        await this.firstNameBox.fill(validUser.firstName);
-        await this.lastNameBox.fill(validUser.lastName);
-        await this.addressBox.fill(validUser.address);
-        await this.countryDD.selectOption(validUser.country);
-        await this.stateBox.fill(validUser.state);
-        await this.cityBox.fill(validUser.city);
-        await this.zipCodeBox.fill(validUser.zipcode);
-        await this.mobileNumberBox.fill(validUser.phone);
+        await this.firstNameBox.fill(user.firstName);
+        await this.lastNameBox.fill(user.lastName);
+        await this.addressBox.fill(user.address);
+        await this.countryDD.selectOption(user.country);
+        await this.stateBox.fill(user.state);
+        await this.cityBox.fill(user.city);
+        await this.zipCodeBox.fill(user.zipcode);
+        await this.mobileNumberBox.fill(user.phone);
 
         await this.page.evaluate(() => {
             window.scrollTo(0, document.body.scrollHeight);

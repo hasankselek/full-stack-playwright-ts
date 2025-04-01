@@ -1,7 +1,7 @@
 import { request, APIRequestContext } from '@playwright/test';
 
 export class APIHelper {
-  private context: APIRequestContext;
+  private context!: APIRequestContext;
   private baseUrl: string;
 
   constructor(baseUrl: string) {
