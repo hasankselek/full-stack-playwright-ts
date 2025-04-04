@@ -11,6 +11,7 @@ export class HomePage extends BasePage{
   readonly productsButton: Locator;
   readonly subscribeEmailBox: Locator;
   readonly subscribeButton: Locator;
+  readonly cartButton: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -22,6 +23,7 @@ export class HomePage extends BasePage{
     this.productsButton = page.locator("(//a[@href='/products'])[1]")
     this.subscribeEmailBox = page.locator("//input[@id='susbscribe_email']")
     this.subscribeButton = page.locator("//button[@id='subscribe']")
+    this.cartButton = page.locator("//a[normalize-space()='Cart']")
   }
 
   async navigateHomePage(){
@@ -42,6 +44,10 @@ export class HomePage extends BasePage{
 
   async clickLogout(){
     await this.clickElement(this.logoutButton)
+  }
+
+  async clickCart(){
+    await this.clickElement(this.cartButton)
   }
 
   async clickTestCases(){

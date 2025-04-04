@@ -106,4 +106,39 @@ export class BasePage {
   async scroolDownFooter(){
     await this.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
   }
+
+  async smoothScrollToLocator(locator: Locator) {
+    await locator.evaluate((element) => {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    });
+  
+    await this.page.waitForTimeout(500);
+  }
+
+  async blockCommonAds() {
+    // Yaygın reklam isteklerini iptal et
+    await this.page.route('**/*', (route) => {
+      const url = route.request().url();
+      if (
+        url.includes('googlesyndication') ||
+        url.includes('doubleclick') ||
+        url.includes('adservice') ||
+        url.includes('facebook.com/ads')
+      ) {
+        console.log('Reklam engellendi:', url);
+        route.abort();
+      } else {
+        route.continue();
+      }
+    });
+  
+    // Yeni sekmede açılan reklamları kapat
+    this.page.context().on('page', async (popup) => {
+      console.log('Açılan pop-up kapatılıyor:', popup.url());
+      await popup.close();
+    });
+  }
 } 

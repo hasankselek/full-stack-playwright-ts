@@ -8,6 +8,10 @@ export class ProductListingPage extends BasePage{
     readonly searchBox: Locator;
     readonly searchButton: Locator;
     readonly searchedProductList: Locator;
+    readonly addToChartList: Locator;
+    readonly continueShoppingButton: Locator;
+    readonly viewChartButton: Locator;
+    readonly productBox: Locator;
 
     constructor(page : Page) {
         super(page);
@@ -16,6 +20,10 @@ export class ProductListingPage extends BasePage{
         this.searchBox = page.locator("#search_product");
         this.searchButton = page.locator("#submit_search");
         this.searchedProductList = page.locator("div[class='productinfo text-center'] p");
+        this.addToChartList = page.getByText('Add to cart');
+        this.continueShoppingButton = page.locator(".btn.btn-success.close-modal.btn-block");
+        this.viewChartButton = page.locator("(//u[normalize-space()='View Cart'])[1]")
+        this.productBox = page.locator("(//div[@class='productinfo text-center'])")
     }    
 
     async verifyProductsListVisible(){
@@ -43,4 +51,23 @@ export class ProductListingPage extends BasePage{
         }
         
     }
+
+    async clickAddToChart(productNumber: number) {
+        const index = productNumber - 1; // 1 tabanlı → 0 tabanlı
+        await this.smoothScrollToLocator(this.addToChartList.nth(index))
+        await this.productBox.nth(index).hover()
+        await this.clickElement(this.addToChartList.nth(index));
+    }
+
+    async clickContinueShopping(){
+        await this.clickElement(this.continueShoppingButton)
+        // Wait for the modal to close completely
+        await this.page.waitForTimeout(1000)
+    }
+
+    async clickViewChart(){
+        await this.clickElement(this.viewChartButton)
+    }
+
+
 }
