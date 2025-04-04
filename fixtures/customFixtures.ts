@@ -5,6 +5,9 @@ import { RegisterPage } from '../pages/RegisterPage';
 import { APIHelper } from '../utils/apiHelper';
 import { TestConfig } from '../config/testConfig';
 import { ContactUsPage } from '@/pages/ContactUsPage';
+import { TestCasePage } from '@/pages/TestCasePage';
+import { ProductListingPage } from '@/pages/ProductListingPage';
+import { ProductDetailingPage } from '@/pages/ProductDetailingPage';
 
 
 type CustomFixtures = {
@@ -12,6 +15,9 @@ type CustomFixtures = {
   loginPage: LoginPage;
   registerPage: RegisterPage;
   contactUsPage: ContactUsPage;
+  testCasePage: TestCasePage;
+  productListingPage: ProductListingPage;
+  productDetailingPage: ProductDetailingPage;
   apiHelper: APIHelper;
   testConfig: TestConfig;
   authenticatedPage: Page;
@@ -30,6 +36,15 @@ const test = baseTest.extend<CustomFixtures>({
   },
   contactUsPage: async ({page},use) =>{
     await use(new ContactUsPage(page));
+  },
+  testCasePage: async ({page},use) =>{
+    await use(new TestCasePage(page));
+  },
+  productListingPage: async ({page},use) =>{
+    await use(new ProductListingPage(page));
+  },
+  productDetailingPage: async ({page},use) =>{
+    await use(new ProductDetailingPage(page));
   },
 
   apiHelper: async ({}, use) => {

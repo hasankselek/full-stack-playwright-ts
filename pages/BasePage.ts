@@ -102,4 +102,8 @@ export class BasePage {
   async uploadFile(locator: Locator, file: string) {
     await locator.setInputFiles(file);
   }
+
+  async scroolDownFooter(){
+    await this.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  }
 } 

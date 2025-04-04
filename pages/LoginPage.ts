@@ -1,6 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
-import { TestData } from '@/fixtures/test-data';
 import { User } from '@/models/user';
 
 export class LoginPage extends BasePage{

@@ -26,7 +26,7 @@ test('Contact Us Form', async ({page, homePage, contactUsPage }) => {
     page.on('dialog', async dialog => {await dialog.accept();});
 
     // Add a wait to ensure the form submission completes
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(2000);
 
     //Click 'Submit' button
     await contactUsPage.clickSubmitButton();
