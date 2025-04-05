@@ -1,6 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from "./BasePage";
-import { T } from '@faker-js/faker/dist/airline-CBNP41sR';
 
 export class CategoryProductsPage extends BasePage{
 

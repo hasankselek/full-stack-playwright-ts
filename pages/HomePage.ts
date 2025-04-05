@@ -19,6 +19,7 @@ export class HomePage extends BasePage{
   readonly categoryTitless: Locator;
   readonly dressText: Locator;
   readonly tshirtText: Locator;
+  readonly brandsText: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -37,6 +38,7 @@ export class HomePage extends BasePage{
     this.categoryTitless = page.locator("(//span[@class='badge pull-right'])")
     this.dressText = page.locator("//div[@id='Women']//a[contains(text(),'Dress')]");
     this.tshirtText = page.locator("//a[normalize-space()='Tshirts']");
+    this.brandsText = page.locator("//h2[normalize-space()='Brands']");
   }
 
   async navigateHomePage(){
@@ -112,6 +114,11 @@ export class HomePage extends BasePage{
   async clickManCategory(){
     await this.categoryTitless.nth(1).click();
     await this.tshirtText.nth(0).click();
+  }
+
+  async verifyBrandTextVisible(){
+    await this.smoothScrollToLocator(this.brandsText)
+    await this.isElementVisible(this.brandsText)
   }
   
 }
