@@ -7,6 +7,11 @@ export class CartPage extends BasePage{
     readonly productsPrice: Locator;
     readonly productsDescription: Locator;
     readonly productsTotalPrices: Locator;
+    readonly productQuantity: Locator;
+    readonly checkoutButton: Locator;
+    readonly registerLoginLink: Locator;
+    readonly quantityDeleteIcon: Locator;
+    readonly emptyCart: Locator;
 
     constructor(page : Page){
         super(page);
@@ -14,6 +19,11 @@ export class CartPage extends BasePage{
         this.productsPrice = page.locator("(//td[@class='cart_price'])")
         this.productsDescription = page.locator("(//td[@class='cart_description'])")
         this.productsTotalPrices = page.locator("(//td[@class='cart_total'])")
+        this.productQuantity = page.locator(".cart_quantity")
+        this.checkoutButton = page.locator(".btn.btn-default.check_out")
+        this.registerLoginLink = page.locator("//u[normalize-space()='Register / Login']")
+        this.quantityDeleteIcon = page.locator("//a[@class='cart_quantity_delete']")
+        this.emptyCart = page.locator("#empty_cart")
     }
 
     async verifyAddedProductsVisibility() {
@@ -36,6 +46,28 @@ export class CartPage extends BasePage{
       
         const desc2 = await this.productsDescription.nth(1).innerText();
         expect(desc2).toContain("Men Tshirt");
+      }
+
+      async verifyProductQuantity(quantity:string){
+        let actualQuantity = await this.productQuantity.first().innerText()
+        let expectedQuantity = quantity
+        expect(actualQuantity).toBe(expectedQuantity)
+      }
+
+      async clickCheckoutButton(){
+        await this.clickElement(this.checkoutButton)
+      }
+
+      async clickRegisterLoginLink(){
+        await this.clickElement(this.registerLoginLink)
+      }
+
+      async clickQuantityDeleteIcon(){
+        await this.clickElement(this.quantityDeleteIcon)
+      }
+
+      async verifyEmptyCart(){
+        await this.assertElementContainsText(this.emptyCart,"Cart is empty!")
       }
 
 }

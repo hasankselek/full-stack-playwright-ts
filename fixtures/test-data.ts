@@ -1,6 +1,7 @@
 import { User } from '../models/user';
 import { Subject } from '../models/subject';
 import { faker } from '@faker-js/faker';
+import { CreditCard } from '@/models/creditCard';
 
 export class TestData {
   /**
@@ -78,6 +79,20 @@ export class TestData {
       subject: faker.lorem.lines(),
       message: faker.lorem.paragraph(),
       filePath : "test-file/test-photo.jpeg"
+    };
+  }
+
+  /**
+   * Generate random subject
+   */
+  static getCreditCard(): CreditCard {
+  
+    return {
+      fullName: "John Doe",
+      cardNumber: "4111111111111111",
+      cvc: "111",
+      expirationMonth:"12",
+      expirationYear: "2030",
     };
   }
 }

@@ -9,6 +9,8 @@ export class ProductDetailingPage extends BasePage{
     readonly productAvailability: Locator;
     readonly productCondition: Locator;
     readonly productBrand: Locator;
+    readonly inputQuantityBox: Locator;
+    readonly addToCartButton: Locator;
 
     constructor(page:Page){
         super(page);
@@ -18,6 +20,8 @@ export class ProductDetailingPage extends BasePage{
         this.productAvailability = page.locator("//div[@class='product-details']//p[2]");
         this.productCondition = page.locator("//div[@class='product-details']//p[3]")
         this.productBrand = page.locator("//div[@class='product-details']//p[4]")
+        this.inputQuantityBox = page.locator("#quantity")
+        this.addToCartButton = page.locator("//button[normalize-space()='Add to cart']");
     }
 
 
@@ -28,5 +32,14 @@ export class ProductDetailingPage extends BasePage{
         await this.isElementVisible(this.productAvailability);
         await this.isElementVisible(this.productCondition);
         await this.isElementVisible(this.productBrand);
+    }
+
+    async inputQuantity(quantity:string){
+        await this.inputQuantityBox.clear()
+        await this.typeText(this.inputQuantityBox,quantity)
+    }
+
+    async clickAddToChartButton(){
+        this.clickElement(this.addToCartButton)
     }
 }

@@ -99,6 +99,12 @@ export class BasePage {
     await expect(actualHomePageUrl).toBe(expectedHomePageUrl);
   }
 
+  async verifyNavigateContainExpectedPage(expectedUrl : string):Promise<void> {
+    const expectedHomePageUrl = expectedUrl;
+    const actualHomePageUrl = await this.page.url();
+    await expect(actualHomePageUrl).toContain(expectedHomePageUrl);
+  }
+
   async uploadFile(locator: Locator, file: string) {
     await locator.setInputFiles(file);
   }

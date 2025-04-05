@@ -9,6 +9,9 @@ import { TestCasePage } from '@/pages/TestCasePage';
 import { ProductListingPage } from '@/pages/ProductListingPage';
 import { ProductDetailingPage } from '@/pages/ProductDetailingPage';
 import { CartPage } from '@/pages/CartPage';
+import { CheckoutPage } from '@/pages/CheckoutPage';
+import { PaymentPage } from '@/pages/PaymentPage';
+import { CategoryProductsPage } from '@/pages/CategoryProductsPage';
 
 
 type CustomFixtures = {
@@ -20,6 +23,9 @@ type CustomFixtures = {
   productListingPage: ProductListingPage;
   productDetailingPage: ProductDetailingPage;
   cartPage: CartPage;
+  paymentPage: PaymentPage;
+  checkoutPage: CheckoutPage;
+  categoryProductsPage: CategoryProductsPage;
   apiHelper: APIHelper;
   testConfig: TestConfig;
   authenticatedPage: Page;
@@ -51,6 +57,16 @@ const test = baseTest.extend<CustomFixtures>({
   cartPage: async ({page},use) =>{
     await use(new CartPage(page));
   },
+  checkoutPage: async ({page},use) =>{
+    await use(new CheckoutPage(page));
+  },
+  paymentPage: async ({ page }, use) => {
+    await use(new PaymentPage(page));
+  },
+  categoryProductsPage: async ({ page }, use) => {
+    await use(new CategoryProductsPage(page));
+  },
+  
 
   apiHelper: async ({}, use) => {
     const config = TestConfig.getInstance();
@@ -68,3 +84,7 @@ const test = baseTest.extend<CustomFixtures>({
 });
 
 export { test, expect };
+
+function initializeTest(arg0: { page: any; }, arg1: (use: any) => void): any {
+  throw new Error('Function not implemented.');
+}

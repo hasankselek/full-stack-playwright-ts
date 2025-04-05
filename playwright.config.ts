@@ -11,23 +11,32 @@ export default defineConfig({
     headless: false,
     baseURL: 'http://automationexercise.com',
     trace: 'on',
-    viewport: { width: 1920, height: 1080 },
+    launchOptions: {
+      
+      args: ["--start-maximized"]},
+    viewport: null,
   },
  
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
+      use: { 
+        //...devices['Desktop Chrome'],
+      viewport: null,
+    }
+  },
 
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: { 
+        //...devices['Desktop Firefox'] },
+        viewport: null,}
     },
 
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      use: { //...devices['Desktop Safari'] 
+        viewport: null,},
     },
     {
       name: 'Mobile Chrome',
