@@ -1,4 +1,3 @@
-import { wait } from '@/utils/testUtils';
 import { test} from '../../fixtures/customFixtures';
 
 test('Test Case 18: View Category Products', async ({homePage,brandsProductsPage}) => {
