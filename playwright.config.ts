@@ -8,7 +8,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    headless: false,
+    headless: true,
     baseURL: 'http://automationexercise.com',
     trace: 'on',
     launchOptions: {
@@ -23,6 +23,7 @@ export default defineConfig({
       use: { 
         //...devices['Desktop Chrome'],
       viewport: null,
+      headless: true,
     }
   },
 
