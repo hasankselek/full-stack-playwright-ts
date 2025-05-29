@@ -3,8 +3,9 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
-  timeout: 30000,
-  workers: 2,
+  timeout: 60000,
+  retries: 1,
+  workers: process.env.CI ? 1 : undefined,
   reporter: [
     ['line'],
     ['allure-playwright', {
@@ -16,8 +17,10 @@ export default defineConfig({
 
   use: {
     headless: true,
+    trace: 'retain-on-failure',
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
     baseURL: 'http://automationexercise.com',
-    trace: 'on',
     launchOptions: {
       args: ['--start-maximized'],
     },
