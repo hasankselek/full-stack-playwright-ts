@@ -1,4 +1,3 @@
-import { ProductDetailingPage } from "@/pages/ProductDetailingPage";
 import {test} from "../../fixtures/customFixtures"
 
 test('Test Case 13: Verify Product quantity in Cart',async({homePage,productDetailingPage,productListingPage,cartPage})=>{

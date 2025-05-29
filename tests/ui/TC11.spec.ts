@@ -1,7 +1,7 @@
 import { TestData } from "@/fixtures/test-data";
 import {test} from "../../fixtures/customFixtures";
 
-test('Test Case 11: Verify Subscription in Cart page', async ({homePage }) => {
+test('Test Case 11: Verify Subscription in Cart page', async ({homePage}) => {
 
     const email = TestData.generateRandomUser(); 
 

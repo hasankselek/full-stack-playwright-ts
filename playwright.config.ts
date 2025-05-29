@@ -3,8 +3,8 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
-  timeout: 30_000,
-  workers: 1,
+  timeout: 30000,
+  workers: 2,
   reporter: [
     ['line'],
     ['allure-playwright', {
@@ -15,7 +15,7 @@ export default defineConfig({
   ],
 
   use: {
-    headless: false,
+    headless: true,
     baseURL: 'http://automationexercise.com',
     trace: 'on',
     launchOptions: {

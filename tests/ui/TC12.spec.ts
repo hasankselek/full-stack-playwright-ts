@@ -1,6 +1,6 @@
 import {test} from "../../fixtures/customFixtures"
 
-test('Test Case 12: Add Products in Cart',async({page,homePage,productListingPage,cartPage})=>{
+test('Test Case 12: Add Products in Cart',async({homePage,productListingPage,cartPage})=>{
 
     //Navigate to url 'http://automationexercise.com'
     await homePage.navigateHomePage();

@@ -1,6 +1,6 @@
 import { test} from '../../fixtures/customFixtures';
 
-test('Test Case 26: Verify Scroll Up without "Arrow" button and Scroll Down functionality', async ({homePage,productListingPage,productDetailingPage}) => {
+test('Test Case 26: Verify Scroll Up without "Arrow" button and Scroll Down functionality', async ({homePage}) => {
 
   //Navigate to url 'http://automationexercise.com' 
   await homePage.navigateHomePage();

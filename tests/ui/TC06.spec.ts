@@ -1,6 +1,5 @@
 import { TestData } from "@/fixtures/test-data";
 import { test } from "../../fixtures/customFixtures"
-import { wait } from "@/utils/testUtils";
 
 
 test('Contact Us Form', async ({page, homePage, contactUsPage }) => {
