@@ -2,19 +2,28 @@
   "name": "automationexercies-playwright-ts",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "scripts": {
+    "test:ui":    "playwright test --project=chromium,firefox",
+    "allure:ui":  "npm run test:ui && npm run allure:generate && npm run allure:open",
+
+    "test:api":   "playwright test --project=api-tests",
+    "allure:api": "npm run test:api && npm run allure:generate && npm run allure:open",
+
+    "test:allure":  "playwright test",
+    "allure:generate": "npx allure generate allure-results -o allure-report --clean",
+    "allure:open":     "npx allure open allure-report",
+    "allure:report":   "npm run test:allure && npm run allure:generate && npm run allure:open"
+  },
   "devDependencies": {
-    "@playwright/test": "^1.51.1",
+    "@faker-js/faker": "^9.8.0",
+    "@playwright/test": "^1.52.0",
     "@types/node": "^22.13.14",
+    "allure-commandline": "^2.34.0",
+    "allure-playwright": "^3.2.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
   },
   "dependencies": {
-    "@faker-js/faker": "^9.6.0",
     "playwright": "^1.49.0"
   }
 }

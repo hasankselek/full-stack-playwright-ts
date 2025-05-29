@@ -1,93 +1,101 @@
 # Automation Exercise - Playwright TypeScript Test Automation Project
 
-This project is a UI test automation framework developed using Playwright and TypeScript for the [Automation Exercise](http://automationexercise.com) website.
+Bu proje, [Automation Exercise](http://automationexercise.com) web sitesi için Playwright ve TypeScript kullanılarak geliştirilmiş bir UI test otomasyon çerçevesidir.
 
-## ✨ Features
+## ✨ Özellikler
 
-*   **Playwright**: Modern, fast, and reliable browser automation.
-*   **TypeScript**: More robust and readable code with static typing.
-*   **Page Object Model (POM)**: Design pattern that simplifies test maintenance and enhances reusability.
-*   **Custom Fixtures**: Management of custom setup and teardown operations for tests.
-*   **Faker.js**: Library used for generating test data.
-*   **Cross-Browser Testing**: Support for running tests on Chromium, Firefox, and WebKit.
-*   **HTML Reporting**: Detailed HTML reports for test results.
+*   **Playwright**: Modern, hızlı ve güvenilir tarayıcı otomasyonu.
+*   **TypeScript**: Statik tipleme ile daha sağlam ve okunabilir kod.
+*   **Page Object Model (POM)**: Test bakımını basitleştiren ve yeniden kullanılabilirliği artıran tasarım deseni.
+*   **Özel Fixture'lar**: Testler için özel kurulum ve temizleme işlemlerinin yönetimi.
+*   **Faker.js**: Test verisi oluşturmak için kullanılan kütüphane.
+*   **Çoklu Tarayıcı Testi**: Chromium, Firefox ve WebKit üzerinde test çalıştırma desteği.
+*   **HTML Raporlama**: Test sonuçları için ayrıntılı HTML raporları.
+*   **Allure Raporlama**: Gelişmiş, etkileşimli test raporları ile ekler ve adım ayrıntıları.
 
-## 📋 Prerequisites
+## 📋 Ön Koşullar
 
-*   [Node.js](https://nodejs.org/) (v18 or higher recommended)
-*   [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+*   [Node.js](https://nodejs.org/) (v18 veya üzeri önerilir)
+*   [npm](https://www.npmjs.com/) veya [yarn](https://yarnpkg.com/)
 
-## 🚀 Setup
+## 🚀 Kurulum
 
-1.  **Clone the Project:**
+1.  **Projeyi Klonlayın:**
     ```bash
-    git clone <repository-url> # Replace <repository-url> with your repository address
+    git clone <repository-url> # <repository-url> yerine kendi repository adresinizi yazın
     cd automationexercise-playwright-ts
     ```
 
-2.  **Install Dependencies:**
+2.  **Bağımlılıkları Yükleyin:**
     ```bash
     npm install
     ```
-    or
+    veya
     ```bash
     yarn install
     ```
 
-3.  **Install Playwright Browsers:**
+3.  **Playwright Tarayıcılarını Yükleyin:**
     ```bash
     npx playwright install
     ```
 
-## 📂 Project Structure
+## 📂 Proje Yapısı
 
 ```
 .
-├── fixtures/         # Test data and custom fixtures
+├── config/             # Test yapılandırma dosyaları
+│   └── testConfig.ts
+├── fixtures/         # Test verileri ve özel fixture'lar
 │   ├── customFixtures.ts
 │   └── test-data.ts
-├── models/           # Data models (TypeScript interfaces)
+├── models/           # Veri modelleri (TypeScript arayüzleri)
+│   ├── creditCard.ts
 │   ├── subject.ts
 │   └── user.ts
-├── node_modules/     # Project dependencies
-├── pages/            # Page Object Model classes
+├── node_modules/     # Proje bağımlılıkları
+├── pages/            # Page Object Model sınıfları
 │   ├── BasePage.ts
-│   └── ... (other page objects)
-├── playwright-report/ # Directory where Playwright HTML reports are saved
-├── test-file/        # Files used in tests (e.g., for file uploads)
-├── test-results/     # Raw test results and trace files
-├── tests/            # Test scenarios (spec files)
-│   └── ui/           # UI tests
+│   └── ... (diğer sayfa nesneleri)
+├── playwright-report/ # Playwright HTML raporlarının kaydedildiği dizin
+├── allure-results/   # Allure ham sonuçları (test çalıştırıldıktan sonra oluşturulur)
+├── test-file/        # Testlerde kullanılan dosyalar (örneğin, dosya yüklemeleri için)
+├── test-results/     # Ham test sonuçları ve izleme dosyaları
+├── tests/            # Test senaryoları (spec dosyaları)
+│   └── ui/           # UI testleri
 │       └── TC01.spec.ts
 │       └── ...
-├── utils/            # Helper functions and configurations
-│   ├── logger.ts     # (Logging mechanism, if present)
-│   └── testUtils.ts  # (Helper test functions, if present)
-├── .gitignore        # Files ignored by Git
-├── package.json      # Project dependencies and scripts
-├── package-lock.json # Locked versions of dependencies
-├── playwright.config.ts # Playwright configuration file
-├── tsconfig.json     # TypeScript compiler options
-└── README.md         # This file
+├── utils/            # Yardımcı fonksiyonlar ve konfigürasyonlar
+│   ├── apiHelper.ts  # API test yardımcı fonksiyonları
+│   ├── dataHelper.ts # Test verisi yardımcı fonksiyonları
+│   ├── helpers.ts    # Genel yardımcı fonksiyonlar
+│   ├── logger.ts     # Loglama mekanizması
+│   └── testUtils.ts  # Test yardımcı fonksiyonları
+├── .gitignore        # Git tarafından yok sayılan dosyalar
+├── package.json      # Proje bağımlılıkları ve script'leri
+├── package-lock.json # Bağımlılıkların sabitlenmiş versiyonları
+├── playwright.config.ts # Playwright konfigürasyon dosyası
+├── tsconfig.json     # TypeScript derleyici seçenekleri
+└── README.md         # Bu dosya
 ```
 
-## ▶️ Running Tests
+## ▶️ Testleri Çalıştırma
 
-You can add commands to the `scripts` section of your `package.json` file or use `npx playwright` commands directly to run tests:
+Testleri çalıştırmak için `package.json` dosyanızın `scripts` bölümüne komutlar ekleyebilir veya doğrudan `npx playwright` komutlarını kullanabilirsiniz:
 
-*   **Run All Tests (Headless Mode):**
+*   **Tüm Testleri Çalıştır (Başsız Mod):**
     ```bash
     npx playwright test
     ```
 
-*   **Run All Tests (Headed Mode - Browser Visible):**
+*   **Tüm Testleri Çalıştır (Tarayıcı Görünür Mod):**
     ```bash
     npx playwright test --headed
     ```
 
-*   **Run on a Specific Browser:**
+*   **Belirli Bir Tarayıcıda Çalıştır:**
     ```bash
-    # Use the project names defined in playwright.config.ts
+    # playwright.config.ts dosyasında tanımlanan proje adlarını kullanın
     npx playwright test --project=chromium
     npx playwright test --project=firefox
     npx playwright test --project=webkit
@@ -95,41 +103,63 @@ You can add commands to the `scripts` section of your `package.json` file or use
     npx playwright test --project="Mobile Safari"
     ```
 
-*   **Run a Specific Test File:**
+*   **Belirli Bir Test Dosyasını Çalıştır:**
     ```bash
     npx playwright test tests/ui/TC01.spec.ts
     ```
 
-*   **Run a Specific Test (by Test Name):**
+*   **Belirli Bir Testi Çalıştır (Test Adına Göre):**
     ```bash
-    # Example: Run the 'Register User' test inside TC01.spec.ts
+    # Örnek: TC01.spec.ts içindeki 'Register User' testini çalıştır
     npx playwright test -g "Register User"
     ```
 
-## 📊 Test Reports
+## 📊 Test Raporları
 
-After the tests are executed, a detailed HTML report is generated in the `playwright-report` directory. You can view the report using the following command:
+Testler yürütüldükten sonra, `playwright-report` dizininde ayrıntılı bir HTML raporu oluşturulur. Raporu görüntülemek için aşağıdaki komutu kullanabilirsiniz:
 
 ```bash
 npx playwright show-report
 ```
 
-This command will open the report in your default browser.
+Bu komut, raporu varsayılan tarayıcınızda açacaktır.
 
-## ⚙️ Configuration
+## 📊 Allure Raporları
 
-The Playwright configuration is located in the `playwright.config.ts` file. You can modify settings such as:
+Allure, gelişmiş, etkileşimli test raporları sağlar. Bu projeyi kullanmak için:
 
-*   `baseURL`: The base URL of the application under test (`http://automationexercise.com`).
-*   `timeout`: Default timeout for test steps (e.g., `30000` ms).
-*   `retries`: How many times failed tests should be retried in a CI environment (`process.env.CI ? 2 : 0`).
-*   `projects`: Configurations for different browsers and devices (Chromium, Firefox, WebKit, Mobile Chrome, Mobile Safari).
-*   `use`: Global test settings (headless mode, viewport size, trace settings, etc.). The `headless: false` setting runs tests with the browser UI visible.
+1. **Playwright testlerinizi çalıştırın (Allure sonuçları otomatik olarak oluşturulur):**
+    ```bash
+    npx playwright test
+    ```
+    Bu, ham sonuçları içeren bir `allure-results` dizini oluşturacaktır.
 
-## 🤝 Contributing
+2. **Allure HTML raporunu oluşturun:**
+    ```bash
+    npx allure generate allure-results --clean -o allure-report
+    ```
 
-If you would like to contribute, please open an issue or submit a pull request.
+3. **Allure raporunu tarayıcınızda açın:**
+    ```bash
+    npx allure open allure-report
+    ```
 
-## 📜 License
+Allure raporu, etkileşimli grafikler, adımlar ve ekler ile varsayılan tarayıcınızda açılacaktır.
 
-This project is licensed under the ISC License. See the `package.json` file for details. 
+## ⚙️ Yapılandırma
+
+Playwright yapılandırması `playwright.config.ts` dosyasında bulunur. Aşağıdaki gibi ayarları değiştirebilirsiniz:
+
+*   `baseURL`: Test edilen uygulamanın temel URL'si (`http://automationexercise.com`).
+*   `timeout`: Test adımları için varsayılan zaman aşımı (örneğin, `30000` ms).
+*   `retries`: Başarısız testlerin bir CI ortamında kaç kez yeniden denenmesi gerektiği (`process.env.CI ? 2 : 0`).
+*   `projects`: Farklı tarayıcılar ve cihazlar için yapılandırmalar (Chromium, Firefox, WebKit, Mobile Chrome, Mobile Safari).
+*   `use`: Genel test ayarları (başsız mod, viewport boyutu, izleme ayarları vb.). `headless: false` ayarı, testleri tarayıcı arayüzü görünür şekilde çalıştırır.
+
+## 🤝 Katkıda Bulunma
+
+Katkıda bulunmak isterseniz, lütfen bir sorun açın veya bir çekme isteği gönderin.
+
+##  lisans
+
+Bu proje ISC Lisansı altında lisanslanmıştır. Ayrıntılar için `package.json` dosyasına bakın.

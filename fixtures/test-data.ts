@@ -95,4 +95,11 @@ export class TestData {
       expirationYear: "2030",
     };
   }
+
+  /**
+   * Generate random email
+   */
+  static getRandomEmail(): string {
+    return faker.internet.email().toLowerCase();
+  }
 }

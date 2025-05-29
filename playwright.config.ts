@@ -1,51 +1,39 @@
+// playwright.config.ts
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
-  timeout: 30000,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
-  reporter: 'html',
+  timeout: 30_000,
+  workers: 1,
+  reporter: [['list']],
   use: {
     headless: true,
     baseURL: 'http://automationexercise.com',
     trace: 'on',
-    launchOptions: {
-      
-      args: ["--start-maximized"]},
     viewport: null,
   },
- 
+
   projects: [
     {
       name: 'chromium',
-      use: { 
-        //...devices['Desktop Chrome'],
-      viewport: null,
-      headless: true,
-    }
-  },
-
+      testMatch: ['ui/**/*.spec.ts'],      // tests/ui altı
+      use: { ...devices['Desktop Chrome'], viewport: null },
+    },
     {
       name: 'firefox',
-      use: { 
-        //...devices['Desktop Firefox'] },
-        viewport: null,}
-    },
-
-    {
-      name: 'webkit',
-      use: { //...devices['Desktop Safari'] 
-        viewport: null,},
+      testMatch: ['ui/**/*.spec.ts'],      // tests/ui altı
+      use: { ...devices['Desktop Firefox'], viewport: null },
     },
     {
-      name: 'Mobile Chrome',
-      use: { ...devices['Pixel 5'] },
-    },
-    {
-      name: 'Mobile Safari',
-      use: { ...devices['iPhone 12'] },
+      name: 'api-tests',
+      testMatch: ['api/**/*.spec.ts'],     // tests/api altı
+      use: {
+        baseURL: 'http://automationexercise.com',
+        headless: true,
+        trace: 'off',
+        screenshot: 'off',
+        video: 'off',
+      },
     },
   ],
 });
