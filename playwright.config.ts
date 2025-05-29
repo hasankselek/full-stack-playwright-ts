@@ -6,27 +6,34 @@ export default defineConfig({
   timeout: 30_000,
   workers: 1,
   reporter: [['list']],
+
   use: {
     headless: true,
     baseURL: 'http://automationexercise.com',
     trace: 'on',
-    viewport: null,
+    launchOptions: {
+      args: ['--start-maximized'],
+    },
   },
 
   projects: [
     {
       name: 'chromium',
-      testMatch: ['ui/**/*.spec.ts'],      // tests/ui altı
-      use: { ...devices['Desktop Chrome'], viewport: null },
+      testMatch: ['ui/**/*.spec.ts'],
+      use: {
+        ...devices['Desktop Chrome'],
+      },
     },
     {
       name: 'firefox',
-      testMatch: ['ui/**/*.spec.ts'],      // tests/ui altı
-      use: { ...devices['Desktop Firefox'], viewport: null },
+      testMatch: ['ui/**/*.spec.ts'],
+      use: {
+        ...devices['Desktop Firefox'],
+      },
     },
     {
       name: 'api-tests',
-      testMatch: ['api/**/*.spec.ts'],     // tests/api altı
+      testMatch: ['api/**/*.spec.ts'],
       use: {
         baseURL: 'http://automationexercise.com',
         headless: true,

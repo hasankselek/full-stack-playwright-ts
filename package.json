@@ -3,17 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test:ui":    "playwright test --project=chromium,firefox",
-    "allure:ui":  "npm run test:ui && npm run allure:generate && npm run allure:open",
-
-    "test:api":   "playwright test --project=api-tests",
-    "allure:api": "npm run test:api && npm run allure:generate && npm run allure:open",
-
-    "test:allure":  "playwright test",
-    "allure:generate": "npx allure generate allure-results -o allure-report --clean",
-    "allure:open":     "npx allure open allure-report",
-    "allure:report":   "npm run test:allure && npm run allure:generate && npm run allure:open"
-  },
+  "test:ui": "playwright test --project=chromium,firefox --reporter=list,allure-playwright",
+  "allure:ui": "npm run test:ui && npm run allure:generate && npm run allure:open",
+  "test:api": "playwright test --project=api-tests --reporter=list,allure-playwright",
+  "allure:api": "npm run test:api || true && npm run allure:generate && npm run allure:open",
+  "test:allure": "playwright test --reporter=list,allure-playwright",
+  "allure:generate": "npx allure generate allure-results -o allure-report --clean",
+  "allure:open": "npx allure open allure-report",
+  "allure:report": "npm run test:allure && npm run allure:generate && npm run allure:open"
+},
   "devDependencies": {
     "@faker-js/faker": "^9.8.0",
     "@playwright/test": "^1.52.0",

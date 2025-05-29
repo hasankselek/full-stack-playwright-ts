@@ -1,26 +1,20 @@
-import{test,expect} from '@playwright/test';
+import { ConfigReader } from '@/utils/configReader';
+import { test, expect, APIResponse } from '@playwright/test';
 
-test('API 14: GET user account detail by email', async ({request}) => {
-
-    const baseURL = 'https://automationexercise.com/api'; 
-
-    const formData = {
-        email : 'test@test.com'
-    }
-
-    const response = await request.get(`${baseURL}/getUserDetailByEmail`, {
-        params: formData
+test('API 14: GET user account detail by email', async ({ request }) => {
+  let response: APIResponse;
+  let responseBody: any;
+  
+  await test.step('Send GET /api/getUserDetailByEmail request', async () => {
+    const email = ConfigReader.get('sharedEmail');
+    response = await request.get('/api/getUserDetailByEmail', {
+      params: { email },
     });
-
     expect(response.status()).toBe(200);
+    responseBody = await response.json();
+  });
 
-    // Response body'sini al
-    const responseBody = await response.json();
-
-    // Response mesajını kontrol et
-    expect(responseBody).toHaveProperty('responseCode');
-    expect(responseBody.responseCode).toBe(200);
-
-
-
+  await test.step('Validate responseCode is 200', async () => {
+    expect(responseBody).toHaveProperty('responseCode',200);
+  });
 });

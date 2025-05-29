@@ -1,29 +1,27 @@
-import{test,expect} from '@playwright/test';
+import { test, expect, APIResponse } from '@playwright/test';
 
-test('API 5: POST To Search Product', async ({request}) => {
+test('API 5: POST To Search Product', async ({ request }) => {
+    let response: APIResponse;
+    let responseBody: any;
 
-    const baseURL = 'https://automationexercise.com/api'; 
-
-    const response = await request.post(`${baseURL}/searchProduct`, {
-        form: {search_product : 'jean'}
+    await test.step('Send POST /api/searchProduct request', async () => {
+        response = await request.post('/api/searchProduct', {
+            form: { search_product: 'jean' },
+        });
+        expect(response.status()).toBe(200);
+        responseBody = await response.json();
     });
 
-    expect(response.status()).toBe(200);
+    await test.step('Validate responseCode is 200', async () => {
+        expect(responseBody).toHaveProperty('responseCode', 200);
+    });
 
-    // Response body'sini al
-    const responseBody = await response.json();
-
-    // Response mesajını kontrol et
-    expect(responseBody).toHaveProperty('responseCode');
-    expect(responseBody.responseCode).toBe(200);
-
-    expect(responseBody).toHaveProperty('products');
-    expect(Array.isArray(responseBody.products)).toBeTruthy();
-    expect(responseBody.products.length).toBeGreaterThan(0);
-    expect(responseBody.products[0]).toHaveProperty('id');
-    expect(responseBody.products[0]).toHaveProperty('name');
-    expect(responseBody.products[0].name.toLowerCase()).toContain('jean');
-    console.log('Search results for "jean":', responseBody.products);
-
-
+    await test.step('Validate products array and first product', async () => {
+        expect(responseBody).toHaveProperty('products');
+        expect(Array.isArray(responseBody.products)).toBeTruthy();
+        expect(responseBody.products.length).toBeGreaterThan(0);
+        expect(responseBody.products[0]).toHaveProperty('id');
+        expect(responseBody.products[0]).toHaveProperty('name');
+        expect(responseBody.products[0].name.toLowerCase()).toContain('jean');
+    });
 });

@@ -1,19 +1,18 @@
-import { test,expect } from '@playwright/test';
+import { test, expect, APIResponse } from '@playwright/test';
 import { TestData } from '@/fixtures/test-data';
 import { ConfigReader } from '@/utils/configReader';
 
 test('API 11: POST To Create/Register User Account', async ({ request }) => {
+  let randomEmail: string;
+  let responseBody: any;
+  let response: APIResponse;
 
-    const randomEmail = TestData.getRandomEmail(); 
-     ConfigReader.set('sharedEmail', randomEmail); // Paylaşılan e-posta adresini ayarla
-    console.log('Oluşturulan rastgele e-posta:', randomEmail);
-    
-    // API isteği gönder
-    const response = await request.post(`/api/createAccount`, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        form : {
+  randomEmail = TestData.getRandomEmail();
+  ConfigReader.set('sharedEmail', randomEmail);
+
+  await test.step('Send POST /api/createAccount and validate status', async () => {
+    response = await request.post('/api/createAccount', {
+      form: {
         name: 'Test User',
         email: randomEmail,
         password: 'Test123456',
@@ -30,21 +29,16 @@ test('API 11: POST To Create/Register User Account', async ({ request }) => {
         zipcode: '34000',
         state: 'Istanbul',
         city: 'Istanbul',
-        mobile_number: '5550001122'}
-      });
-
+        mobile_number: '5550001122',
+      },
+    });
     expect(response.status()).toBe(200);
-        
-    // Response body'sini al
-    const responseBody = await response.json();
+    responseBody = await response.json();
+  });
 
-    // Response mesajını kontrol et
-    expect(responseBody).toHaveProperty('message');
-    expect(responseBody.message).toBe('User created!');
-
-    expect(responseBody).toHaveProperty('responseCode');
-    expect(responseBody.responseCode).toBe(201);
-    
-    console.log('Yanıt:', responseBody);
-    
+  // Dönen yanıtın içeriğini doğrular
+  await test.step('Validate response payload', async () => {
+    expect(responseBody).toHaveProperty('message', 'User created!');
+    expect(responseBody).toHaveProperty('responseCode', 201);
+  });
 });

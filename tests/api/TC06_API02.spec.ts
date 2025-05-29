@@ -1,23 +1,20 @@
-import{test,expect} from '@playwright/test';
+import { test, expect, APIResponse } from '@playwright/test';
 
-test('API 2: POST To All Products List', async ({request}) => {
+test('API 2: POST To All Products List', async ({ request }) => {
+    let response: APIResponse;
+    let responseBody: any;
 
-    const baseURL = 'https://automationexercise.com/api'; 
-
-   
-    const response = await request.post(`${baseURL}/productsList`, {
+    await test.step('Send POST /api/productsList request', async () => {
+        response = await request.post('/api/productsList');
+        expect(response.status()).toBe(200);
+        responseBody = await response.json();
     });
 
-    expect(response.status()).toBe(200);
+    await test.step('Validate responseCode is 405', async () => {
+        expect(responseBody).toHaveProperty('responseCode', 405);
+    });
 
-    // Response body'sini al
-    const responseBody = await response.json();
-
-    // Response mesajını kontrol et
-    expect(responseBody).toHaveProperty('responseCode');
-    expect(responseBody.responseCode).toBe(405);
-
-    expect(responseBody).toHaveProperty('message');
-    expect(responseBody.message).toBe('This request method is not supported.');
-
+    await test.step('Validate message for unsupported method', async () => {
+        expect(responseBody).toHaveProperty('message', 'This request method is not supported.');
+    });
 });

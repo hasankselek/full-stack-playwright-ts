@@ -1,34 +1,32 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, APIResponse } from '@playwright/test';
 
 test('API 1: Get All Products List', async ({ request }) => {
-    const baseURL = 'https://automationexercise.com/api'; // Replace with your API base URL
+  let responseBody: any;
+  let response: APIResponse;
 
-    const response = await request.get(`${baseURL}/productsList`);
+  await test.step('Send GET /api/productsList request', async () => {
+    response = await request.get('/api/productsList');
     expect(response.status()).toBe(200);
+    responseBody = await response.json();
+  });
 
-    // Response body'sini al
-    const responseBody = await response.json();
-    
-    // Temel kontroller
+  await test.step('Validate responseCode is 200', async () => {
+    expect(responseBody).toHaveProperty('responseCode', 200);
+  });
+
+  await test.step('Validate response structure and content', async () => {
     expect(responseBody).toHaveProperty('products');
     expect(Array.isArray(responseBody.products)).toBeTruthy();
-    
-    // Ürün listesinin boş olmadığını kontrol et
     expect(responseBody.products.length).toBeGreaterThan(0);
-    
-    // İlk ürünün temel özelliklerini kontrol et
-    if (responseBody.products.length > 0) {
-      const firstProduct = responseBody.products[0];
-      expect(firstProduct).toHaveProperty('id');
-      expect(firstProduct).toHaveProperty('name');
-      expect(firstProduct).toHaveProperty('price');
-      expect(firstProduct).toHaveProperty('category');
-      
-      // Log - Testi geçerken ürün bilgilerini görmek isterseniz
-      console.log('İlk ürün:', firstProduct);
-    }
-    
-    // Response süresi kontrolü (opsiyonel)
-    // API yanıt süresinin 2 saniyeden az olmasını bekleyelim
+
+    const firstProduct = responseBody.products[0];
+    expect(firstProduct).toHaveProperty('id');
+    expect(firstProduct).toHaveProperty('name');
+    expect(firstProduct).toHaveProperty('price');
+    expect(firstProduct).toHaveProperty('category');
+  });
+
+  await test.step('Validate response headers', async () => {
     expect(response.headers()['date']).toBeTruthy();
   });
+});

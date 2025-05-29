@@ -1,7 +1,7 @@
 import { TestData } from '@/fixtures/test-data';
 import { test} from '../../fixtures/customFixtures';
 
-test('Register User', async ({page,homePage,loginPage,registerPage}) => {
+test('Register User', async ({homePage,loginPage,registerPage}) => {
 
   const newUser = TestData.generateRandomUser(); 
 

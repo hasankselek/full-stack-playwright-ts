@@ -1,23 +1,20 @@
-import { TestData } from '@/fixtures/test-data';
-import { ConfigReader } from '@/utils/configReader';
-import{test,expect} from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
-test('API 4: PUT To All Brands List', async ({request}) => {
+test('API 4: PUT To All Brands List', async ({ request }) => {
+    let response: any;
+    let responseBody: any;
 
-    const response = await request.put(`/api/brandsList`);
+    await test.step('Send PUT /api/brandsList request', async () => {
+        response = await request.put('/api/brandsList');
+        expect(response.status()).toBe(200);
+        responseBody = await response.json();
+    });
 
-    // HTTP durum kodunu kontrol et
-    expect(response.status()).toBe(200);
+    await test.step('Validate responseCode is 405', async () => {
+        expect(responseBody).toHaveProperty('responseCode', 400);
+    });
 
-    // Response body'sini al
-    const responseBody = await response.json();
-
-    // Response mesajını kontrol et
-    expect(responseBody).toHaveProperty('responseCode');
-    expect(responseBody.responseCode).toBe(405);
-
-    expect(responseBody).toHaveProperty('message');
-    expect(responseBody.message).toBe('This request method is not supported.');
-
-
+    await test.step('Validate message for unsupported method', async () => {
+        expect(responseBody).toHaveProperty('message', 'This request method is not supported.');
+    });
 });

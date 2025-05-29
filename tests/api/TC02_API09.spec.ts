@@ -1,28 +1,19 @@
-import {test,expect} from '@playwright/test';
+import { test, expect, APIResponse } from '@playwright/test';
 
-test('API 9: DELETE To Verify Login',async ({request}) => {
+test('API 9: DELETE To Verify Login', async ({ request }) => {
 
-    const baseURL = 'https://automationexercise.com/api'; 
+  let responseBody: any;
+  let response: APIResponse;
 
-    const response = await request.delete(`${baseURL}/verifyLogin`, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
-
+  await test.step('Send DELETE request to /api/verifyLogin and validate response', async () => {
+    response = await request.delete(`/api/verifyLogin`)
     expect(response.status()).toBe(200);
+    responseBody = await response.json();
+  });
 
-    const responseBody = await response.json();
+  await test.step('Validate response payload', async () => {
+    expect(responseBody).toHaveProperty('message', 'This request method is not supported.');
+    expect(responseBody).toHaveProperty('responseCode', 405);
+  });
 
-    //message
-    expect(responseBody).toHaveProperty('message');
-    expect(responseBody.message).toBe('This request method is not supported.');
-
-    //responseCode
-    expect(responseBody).toHaveProperty('responseCode');
-    expect(responseBody.responseCode).toBe(405);
-
-    
-    console.log('Yanıt:', responseBody);
-  
 });

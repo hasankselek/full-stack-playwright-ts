@@ -1,25 +1,23 @@
-import {test,expect} from '@playwright/test';
+import { test, expect, APIResponse } from '@playwright/test';
 
+test('API 3: Get All Brands List', async ({ request }) => {
+  let responseBody: any;
+  let response: APIResponse;
 
-test('API 3: Get All Brands List',  async ({request}) => {
-
-    const baseURL = 'https://automationexercise.com/api'; 
-
-    const response = await request.get(`${baseURL}/brandsList`, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
-
+  await test.step('Send GET /brandsList request', async () => {
+    response = await request.get(`/api/brandsList`);
     expect(response.status()).toBe(200);
-    
-    const responseBody = await response.json();
+    responseBody = await response.json();
+  });
 
-    // Temel kontroller
+  await test.step('Validate response structure', async () => {
     expect(responseBody).toHaveProperty('brands');
     expect(Array.isArray(responseBody.brands)).toBeTruthy();
     expect(responseBody.brands.length).toBeGreaterThan(0);
-    expect(responseBody.responseCode).toBe(200);
+  });
 
-    console.log('All brands list:', responseBody);
+  await test.step('Validate responseCode is 200', async () => {
+    expect(responseBody).toHaveProperty('responseCode', 200);
+  });
+
 });

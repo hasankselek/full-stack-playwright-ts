@@ -1,28 +1,26 @@
-import { TestData } from '@/fixtures/test-data';
+import { test, expect } from '@playwright/test';
 import { ConfigReader } from '@/utils/configReader';
-import{test,expect} from '@playwright/test';
 
-test('API 4: PUT To All Brands List', async ({request}) => {
+test('API 4: DELETE Account by email', async ({ request }) => {
+    let response: any;
+    let responseBody: any;
 
-    const response = await request.delete(`/api//deleteAccount`, {
-        form: {
-            email: ConfigReader.get('sharedEmail'),
-            password: 'Test123456',
-        }
+    await test.step('Send DELETE /api/deleteAccount request', async () => {
+        response = await request.delete('/api/deleteAccount', {
+            form: {
+                email: ConfigReader.get('sharedEmail'),
+                password: 'Test123456',
+            },
+        });
+        expect(response.status()).toBe(200);
+        responseBody = await response.json();
     });
 
-    // HTTP durum kodunu kontrol et
-    expect(response.status()).toBe(200);
+    await test.step('Validate responseCode is 200', async () => {
+        expect(responseBody).toHaveProperty('responseCode', 200);
+    });
 
-    // Response body'sini al
-    const responseBody = await response.json();
-
-    // Response mesajını kontrol et
-    expect(responseBody).toHaveProperty('responseCode');
-    expect(responseBody.responseCode).toBe(200);
-
-    expect(responseBody).toHaveProperty('message');
-    expect(responseBody.message).toBe('Account deleted!');
-
-
+    await test.step('Validate message for "Account deleted!"', async () => {
+        expect(responseBody).toHaveProperty('message', 'Account deleted!');
+    });
 });
