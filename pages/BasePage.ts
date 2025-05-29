@@ -82,14 +82,14 @@ export class BasePage {
     await expect(locator).toContainText(text);
   }
 
-  async clickWithText(text: string): Promise<void> {
+  async clickWithText(text: string,options = { timeout: 5000 }): Promise<void> {
     const element = this.page.locator(`text=${text}`);
-    await element.click();
+    await element.click({ timeout: options.timeout });
   }
 
-  async verifyTextVisible(text: string): Promise<void> {
+  async verifyTextVisible(text: string, options = { timeout: 5000 }): Promise<void> {
     const element = this.page.locator(`text=${text}`);
-    await expect(element).toBeVisible();
+    await expect(element).toBeVisible({ timeout: options.timeout });
   }
 
   async verifyNavigateExpectedPage(expectedUrl : string):Promise<void> {

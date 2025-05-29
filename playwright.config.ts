@@ -5,7 +5,7 @@ export default defineConfig({
   testDir: './tests',
   timeout: 60000,
   retries: 1,
-  workers: process.env.CI ? 1 : undefined,
+  workers: 1,
   reporter: [
     ['line'],
     ['allure-playwright', {
