@@ -3,15 +3,15 @@ import { BasePage } from './BasePage';
 
 export class ProductListingPage extends BasePage{
 
-    readonly allProductsList: Locator;
-    readonly firstProduct: Locator;
-    readonly searchBox: Locator;
-    readonly searchButton: Locator;
-    readonly searchedProductList: Locator;
-    readonly addToChartList: Locator;
-    readonly continueShoppingButton: Locator;
-    readonly viewChartButton: Locator;
-    readonly productBox: Locator;
+    private readonly allProductsList: Locator;
+    private readonly firstProduct: Locator;
+    private readonly searchBox: Locator;
+    private readonly searchButton: Locator;
+    private readonly searchedProductList: Locator;
+    private readonly addToChartList: Locator;
+    private readonly continueShoppingButton: Locator;
+    private readonly viewChartButton: Locator;
+    private readonly productBox: Locator;
 
     constructor(page : Page) {
         super(page);

@@ -1,9 +1,9 @@
 import { TestData } from '@/fixtures/test-data';
-import { test} from '../../fixtures/customFixtures';
+import { test } from '../../fixtures/customFixtures';
 
-test('Test Case 24: Download Invoice after purchase order', async ({paymentPage,checkoutPage,cartPage,homePage,loginPage,registerPage,productListingPage}) => {
+test('Test Case 24: Download Invoice after purchase order', async ({ paymentPage, checkoutPage, cartPage, homePage, loginPage, registerPage, productListingPage }) => {
 
-  const newUser = TestData.generateRandomUser(); 
+  const newUser = TestData.generateRandomUser();
   const subjectMessage = TestData.getContactMessage();
   const creditCardInformation = TestData.getCreditCard();
 
@@ -31,12 +31,12 @@ test('Test Case 24: Download Invoice after purchase order', async ({paymentPage,
   await cartPage.clickCheckoutButton();
 
   //Click 'Register / Login' button
-  await cartPage.clickRegisterLoginLink() ;
+  await cartPage.clickRegisterLoginLink();
 
   //Fill all details in Signup and create account
   await loginPage.registerWithValidUser(newUser)
   await loginPage.clickSignUp();
-  await registerPage.fillUserInformation(newUser); 
+  await registerPage.fillUserInformation(newUser);
   await registerPage.clickWithText('Create Account');
 
   //Verify 'ACCOUNT CREATED!' and click 'Continue' button
@@ -82,5 +82,5 @@ test('Test Case 24: Download Invoice after purchase order', async ({paymentPage,
   await registerPage.clickWithText('Continue');
 
 
-  
+
 });

@@ -3,8 +3,8 @@ import { BasePage } from "./BasePage";
 
 export class BrandsProductsPage extends BasePage{
 
-    readonly brandPageTitle: Locator; 
-    readonly brandProductList: Locator;
+    private readonly brandPageTitle: Locator; 
+    private readonly brandProductList: Locator;
   
 
     constructor(page:Page){

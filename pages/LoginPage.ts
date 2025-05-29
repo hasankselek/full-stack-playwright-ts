@@ -2,19 +2,19 @@ import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { User } from '@/models/user';
 
-export class LoginPage extends BasePage{
+export class LoginPage extends BasePage {
 
-  readonly newUserSignUpText: Locator;
-  readonly nameBox: Locator;
-  readonly emailBox2: Locator;
-  readonly signUpButton: Locator;
-  readonly emailBox1: Locator;
-  readonly passwordBox: Locator;
-  readonly loginButton: Locator;
-  readonly wrongAccError: Locator;
-  readonly emailExistError: Locator;
-  readonly invalidMailPasswordError: Locator;
-  readonly existingMailError:Locator;
+  private readonly newUserSignUpText: Locator;
+  private readonly nameBox: Locator;
+  private readonly emailBox2: Locator;
+  private readonly signUpButton: Locator;
+  private readonly emailBox1: Locator;
+  private readonly passwordBox: Locator;
+  private readonly loginButton: Locator;
+  private readonly wrongAccError: Locator;
+  private readonly emailExistError: Locator;
+  private readonly invalidMailPasswordError: Locator;
+  private readonly existingMailError: Locator;
 
 
   constructor(page: Page) {
@@ -32,41 +32,41 @@ export class LoginPage extends BasePage{
     this.existingMailError = page.locator("//p[normalize-space()='Email Address already exist!']");
   }
 
-  async loginWithCredential(user:User){
-    await this.typeText(this.emailBox1,user.email)
-    await this.typeText(this.passwordBox,user.password)
+  async loginWithCredential(user: User) {
+    await this.typeText(this.emailBox1, user.email)
+    await this.typeText(this.passwordBox, user.password)
   }
 
-  async verifyLoginPageDisplayed(){
+  async verifyLoginPageDisplayed() {
     await this.isElementVisible(this.newUserSignUpText)
   }
-  
-  async registerWithValidUser(user:User){
-    await this.typeText(this.nameBox,user.firstName+" "+user.lastName)
-    await this.typeText(this.emailBox2,user.email) 
+
+  async registerWithValidUser(user: User) {
+    await this.typeText(this.nameBox, user.firstName + " " + user.lastName)
+    await this.typeText(this.emailBox2, user.email)
   }
 
-  async registerWithInvalidUser(user:User){
-    await this.typeText(this.nameBox,user.firstName+" "+user.lastName)
-    await this.typeText(this.emailBox2,user.email) 
+  async registerWithInvalidUser(user: User) {
+    await this.typeText(this.nameBox, user.firstName + " " + user.lastName)
+    await this.typeText(this.emailBox2, user.email)
   }
 
-  async clickSignUp(){
+  async clickSignUp() {
     await this.clickElement(this.signUpButton)
   }
-  
-  async clickLogin():Promise<void>{
+
+  async clickLogin(): Promise<void> {
     await this.clickElement(this.loginButton)
   }
 
-  async verifyErrorMessage():Promise<void>{
+  async verifyErrorMessage(): Promise<void> {
     await this.isElementVisible(this.wrongAccError)
   }
 
   async verifyEmailErrorMessage(errorMessage: string): Promise<void> {
-    
+
     const errorAlreadyEmailMessage = await this.emailExistError.textContent();
-    
+
     if (errorAlreadyEmailMessage !== null) {
       await expect(errorAlreadyEmailMessage.trim()).toBe(errorMessage);
     } else {
@@ -74,15 +74,15 @@ export class LoginPage extends BasePage{
     }
   }
 
-  async verifyInvalidMailPasswordErrorMessageDisplayed(){
-    await this.assertElementContainsText(this.invalidMailPasswordError,"Your email or password is incorrect!")
+  async verifyInvalidMailPasswordErrorMessageDisplayed() {
+    await this.assertElementContainsText(this.invalidMailPasswordError, "Your email or password is incorrect!")
   }
 
-  async verifyLoginPage(){
+  async verifyLoginPage() {
     await this.verifyNavigateExpectedPage("https://automationexercise.com/login")
   }
 
-  async verifyExistingMailErrorMessageDisplayed(){
-    await this.assertElementContainsText(this.existingMailError,"Email Address already exist!")
+  async verifyExistingMailErrorMessageDisplayed() {
+    await this.assertElementContainsText(this.existingMailError, "Email Address already exist!")
   }
 }

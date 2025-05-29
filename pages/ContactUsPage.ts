@@ -4,15 +4,15 @@ import { Subject } from '@/models/subject';
 
 export class ContactUsPage extends BasePage{
 
-    readonly getInTouchText: Locator;
-    readonly nameBox: Locator;
-    readonly mailBox: Locator;
-    readonly subjectBox: Locator;
-    readonly messageBox: Locator;
-    readonly fileSelectBox: Locator;
-    readonly submitButton: Locator;
-    readonly successMessage: Locator;
-    readonly returnHomeButton: Locator;
+    private readonly getInTouchText: Locator;
+    private readonly nameBox: Locator;
+    private readonly mailBox: Locator;
+    private readonly subjectBox: Locator;
+    private readonly messageBox: Locator;
+    private readonly fileSelectBox: Locator;
+    private readonly submitButton: Locator;
+    private readonly successMessage: Locator;
+    private readonly returnHomeButton: Locator;
 
 
     constructor(page:Page){

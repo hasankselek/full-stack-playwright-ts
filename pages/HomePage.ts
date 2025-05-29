@@ -5,22 +5,21 @@ import { wait } from '@/utils/testUtils';
 
 export class HomePage extends BasePage{
  
-  readonly homePageIcon: Locator;
-  readonly loginButton: Locator;
-  //readonly loggedInAsUsernameText: Locator;
-  readonly logoutButton: Locator;
-  readonly testCasesButton: Locator;
-  readonly productsButton: Locator;
-  readonly subscribeEmailBox: Locator;
-  readonly subscribeButton: Locator;
-  readonly cartButton: Locator;
-  readonly viewProductButtons: Locator;
-  readonly categoryTitles: Locator;
-  readonly womenSubCategorys: Locator;
-  readonly categoryTitless: Locator;
-  readonly dressText: Locator;
-  readonly tshirtText: Locator;
-  readonly brandsText: Locator;
+  private readonly homePageIcon: Locator;
+  private readonly loginButton: Locator;
+  private readonly logoutButton: Locator;
+  private readonly testCasesButton: Locator;
+  private readonly productsButton: Locator;
+  private readonly subscribeEmailBox: Locator;
+  private readonly subscribeButton: Locator;
+  private readonly cartButton: Locator;
+  private readonly viewProductButtons: Locator;
+  private readonly categoryTitles: Locator;
+  private readonly womenSubCategorys: Locator;
+  private readonly categoryTitless: Locator;
+  private readonly dressText: Locator;
+  private readonly tshirtText: Locator;
+  private readonly brandsText: Locator;
   private readonly homepageText: Locator;
   private readonly scrollUpButton: Locator; 
   private readonly recommendItemsText: Locator;
@@ -30,7 +29,6 @@ export class HomePage extends BasePage{
     super(page);
     this.homePageIcon = page.locator("//img[@alt='Website for automation practice']");
     this.loginButton = page.locator("//a[normalize-space()='Signup / Login']");
-    //this.loggedInAsUsernameText = page.locator("//li[10]//a[1]");
     this.logoutButton = page.locator("//a[normalize-space()='Logout']");
     this.testCasesButton = page.locator("(//a[normalize-space()='Test Cases'])[1]")
     this.productsButton = page.locator("(//a[@href='/products'])[1]")

@@ -3,16 +3,16 @@ import { BasePage } from './BasePage';
 
 export class CartPage extends BasePage{
 
-    readonly totalCartProductsList: Locator;
-    readonly productsPrice: Locator;
-    readonly productsDescription: Locator;
-    readonly productsTotalPrices: Locator;
-    readonly productQuantity: Locator;
-    readonly checkoutButton: Locator;
-    readonly registerLoginLink: Locator;
-    readonly quantityDeleteIcon: Locator;
-    readonly emptyCart: Locator;
-
+    private readonly totalCartProductsList: Locator;
+    private readonly productsPrice: Locator;
+    private readonly productsDescription: Locator;
+    private readonly productsTotalPrices: Locator;
+    private readonly productQuantity: Locator;
+    private readonly checkoutButton: Locator;
+    private readonly registerLoginLink: Locator;
+    private readonly quantityDeleteIcon: Locator;
+    private readonly emptyCart: Locator;
+    
     constructor(page : Page){
         super(page);
         this.totalCartProductsList = page.locator("(//img[@alt='Product Image'])")

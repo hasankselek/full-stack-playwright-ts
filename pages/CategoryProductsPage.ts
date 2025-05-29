@@ -3,7 +3,7 @@ import { BasePage } from "./BasePage";
 
 export class CategoryProductsPage extends BasePage{
 
-    readonly categoryPageTitle: Locator; 
+    private readonly categoryPageTitle: Locator; 
   
 
     constructor(page:Page){

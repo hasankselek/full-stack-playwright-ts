@@ -7,13 +7,13 @@ import fs from 'fs/promises';
 
 export class PaymentPage extends BasePage {
 
-    readonly nameOnCardBox: Locator;
-    readonly cardNumberBox: Locator;
-    readonly cvcBox: Locator;
-    readonly expirationMonth: Locator;
-    readonly expirationYear: Locator;
-    readonly payAndConfirmOrderButton: Locator;
-    readonly paymentSuccessfullyText: Locator;
+    private readonly nameOnCardBox: Locator;
+    private readonly cardNumberBox: Locator;
+    private readonly cvcBox: Locator;
+    private readonly expirationMonth: Locator;
+    private readonly expirationYear: Locator;
+    private readonly payAndConfirmOrderButton: Locator;
+    private readonly paymentSuccessfullyText: Locator;
     private readonly downloadInvoiceButton: Locator;
 
 
@@ -48,8 +48,8 @@ export class PaymentPage extends BasePage {
 
 
     async verifyBillText(user: { firstName: string; lastName: string }) {
-        // İndirilenler dizini oluştur (test klasöründe)
-        const downloadPath = path.join(__dirname, 'İndirilenler');
+        
+        const downloadPath = path.join(__dirname, 'invoives');
         await fs.mkdir(downloadPath, { recursive: true });
 
         // İndirme olayını dinle (mevcut sayfa üzerinden)
