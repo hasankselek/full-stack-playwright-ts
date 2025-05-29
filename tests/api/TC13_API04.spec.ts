@@ -11,7 +11,7 @@ test('API 4: PUT To All Brands List', async ({ request }) => {
     });
 
     await test.step('Validate responseCode is 405', async () => {
-        expect(responseBody).toHaveProperty('responseCode', 400);
+        expect(responseBody).toHaveProperty('responseCode', 405);
     });
 
     await test.step('Validate message for unsupported method', async () => {

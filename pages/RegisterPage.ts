@@ -20,7 +20,6 @@ export class RegisterPage extends BasePage{
     private readonly cityBox: Locator;
     private readonly zipCodeBox: Locator;
     private readonly mobileNumberBox: Locator;
-    private readonly createAccountButton: Locator;
     private readonly accountCreatedText: Locator;
     private readonly continueButton: Locator;
 
@@ -42,7 +41,6 @@ export class RegisterPage extends BasePage{
         this.cityBox = page.locator("#city");
         this.zipCodeBox = page.locator("#zipcode");
         this.mobileNumberBox = page.locator("#mobile_number");
-        this.createAccountButton = page.locator("//button[normalize-space()='Create Account']");
         this.accountCreatedText = page.locator("//b[normalize-space()='Account Created!']");
         this.continueButton = page.locator("//a[@class='btn btn-primary']")
     }

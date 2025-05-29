@@ -29,7 +29,7 @@ export class CartPage extends BasePage{
     async verifyAddedProductsVisibility() {
         await this.page.waitForSelector("//img[@alt='Product Image']", { timeout: 5000 });
         const productQuantity = await this.totalCartProductsList.count();
-        await expect(productQuantity, 'Sepette hiç ürün bulunamadı').toBeGreaterThan(0);
+        await expect(productQuantity).toBeGreaterThan(0);
     }
 
     async verifyProductsInformations() {

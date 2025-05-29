@@ -1,6 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { logger } from '../utils/logger';
-import { TestData } from '@/fixtures/test-data';
 
 export class BasePage {
   constructor(protected page: Page) {}
@@ -113,6 +112,10 @@ export class BasePage {
     await this.page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
   }
 
+  async scrollToHeader() {
+  await this.page.evaluate(() => window.scrollTo(0, 0));
+  }
+  
   async smoothScrollToLocator(locator: Locator) {
     await locator.evaluate((element) => {
       element.scrollIntoView({

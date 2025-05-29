@@ -4,6 +4,7 @@ import { User } from '@/models/user';
 import { wait } from '@/utils/testUtils';
 
 export class HomePage extends BasePage{
+ 
   readonly homePageIcon: Locator;
   readonly loginButton: Locator;
   //readonly loggedInAsUsernameText: Locator;
@@ -20,6 +21,10 @@ export class HomePage extends BasePage{
   readonly dressText: Locator;
   readonly tshirtText: Locator;
   readonly brandsText: Locator;
+  private readonly homepageText: Locator;
+  private readonly scrollUpButton: Locator; 
+  private readonly recommendItemsText: Locator;
+  private readonly addToCartButton: Locator;  
 
   constructor(page: Page) {
     super(page);
@@ -39,6 +44,10 @@ export class HomePage extends BasePage{
     this.dressText = page.locator("//div[@id='Women']//a[contains(text(),'Dress')]");
     this.tshirtText = page.locator("//a[normalize-space()='Tshirts']");
     this.brandsText = page.locator("//h2[normalize-space()='Brands']");
+    this.homepageText = page.locator("div[class='item active'] div[class='col-sm-6'] h2");
+    this.scrollUpButton = page.locator("//a[@id='scrollUp']");
+    this.recommendItemsText = page.locator("//h2[normalize-space()='Recommended Items']");
+    this.addToCartButton = page.locator("//div[@class='item active']//div[1]//div[1]//div[1]//div[1]//a[1]");
   }
 
   async navigateHomePage(){
@@ -119,6 +128,25 @@ export class HomePage extends BasePage{
   async verifyBrandTextVisible(){
     await this.smoothScrollToLocator(this.brandsText)
     await this.isElementVisible(this.brandsText)
+  }
+
+  async verifyHomePageTextVisible(text: string){
+    await this.isElementVisible(this.homepageText)
+    await this.assertElementContainsText(this.homepageText, text);
+  }
+
+  async clickScrollUpButton() {
+    await this.clickElement(this.scrollUpButton);
+    await wait(500); 
+  }
+
+  async verifyRecommendedItemsTextVisible() {
+    await this.isElementVisible(this.recommendItemsText);
+  }
+
+  async clickAddToCartButton() {
+    await this.clickElement(this.addToCartButton);
+    await wait(500); 
   }
   
 }

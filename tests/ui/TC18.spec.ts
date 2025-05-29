@@ -27,7 +27,6 @@ test('Test Case 18: View Category Products', async ({homePage,categoryProductsPa
 
   //On left side bar, click on any sub-category link of 'Men' category
   await homePage.clickManCategory();
-
   await wait(1000)
 
   //Verify that user is navigated to that category page

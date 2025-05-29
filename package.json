@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-  "test:ui": "playwright test --project=chromium,firefox --reporter=list,allure-playwright",
-  "allure:ui": "npm run test:ui && npm run allure:generate && npm run allure:open",
+  "test:ui": "playwright test --project=chromium --project=firefox --reporter=list,allure-playwright",
+  "allure:ui": "npm run test:ui || true && npm run allure:generate && npm run allure:open",
   "test:api": "playwright test --project=api-tests --reporter=list,allure-playwright",
   "allure:api": "npm run test:api || true && npm run allure:generate && npm run allure:open",
   "test:allure": "playwright test --reporter=list,allure-playwright",

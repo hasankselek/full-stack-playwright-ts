@@ -10,6 +10,7 @@ export class CheckoutPage extends BasePage{
     readonly deliveryPhone: Locator;
     readonly descriptionArea: Locator;
     readonly placeOrderButton: Locator;
+    private readonly billingAddress: Locator;
 
     constructor(page:Page) {
         super(page);
@@ -18,6 +19,7 @@ export class CheckoutPage extends BasePage{
         this.deliveryPhone = page.locator("ul[id='address_delivery'] li[class='address_phone']")
         this.descriptionArea  = page.locator("//textarea[@name='message']")
         this.placeOrderButton = page.locator("//a[normalize-space()='Place Order']")
+        this.billingAddress = page.locator("ul[id='address_invoice'] li:nth-child(4)");
     }
 
     async verifyDeliveryInfortmation(user: User) {
@@ -41,6 +43,16 @@ export class CheckoutPage extends BasePage{
 
     async clickPlaceOrder(){
         this.clickElement(this.placeOrderButton)
+    }
+
+    async verifyDeliveryAddress(user: User) {
+        await this.deliveryAddress.isVisible();
+        expect(this.deliveryAddress).toHaveText(user.address);
+    }
+
+     async verifyBillingAddress(user: User) {
+        await this.billingAddress.isVisible();
+        expect(this.billingAddress).toHaveText(user.address);
     }
 
 

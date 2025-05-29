@@ -5,10 +5,17 @@ export default defineConfig({
   testDir: './tests',
   timeout: 30_000,
   workers: 1,
-  reporter: [['list']],
+  reporter: [
+    ['line'],
+    ['allure-playwright', {
+      detail: true,
+      outputFolder: 'allure-results',
+      suiteTitle: false
+    }]
+  ],
 
   use: {
-    headless: true,
+    headless: false,
     baseURL: 'http://automationexercise.com',
     trace: 'on',
     launchOptions: {
@@ -21,7 +28,10 @@ export default defineConfig({
       name: 'chromium',
       testMatch: ['ui/**/*.spec.ts'],
       use: {
-        ...devices['Desktop Chrome'],
+        viewport: null,
+        launchOptions: { args: ['--start-maximized'] },
+        screenshot: 'only-on-failure',
+        video: 'off',
       },
     },
     {
@@ -29,6 +39,10 @@ export default defineConfig({
       testMatch: ['ui/**/*.spec.ts'],
       use: {
         ...devices['Desktop Firefox'],
+        launchOptions: { args: ['--start-maximized'] },
+        screenshot: 'only-on-failure',
+        video: 'off',
+        
       },
     },
     {
