@@ -10,6 +10,7 @@ import { CheckoutPage } from '@/pages/CheckoutPage';
 import { PaymentPage } from '@/pages/PaymentPage';
 import { CategoryProductsPage } from '@/pages/CategoryProductsPage';
 import { BrandsProductsPage } from '@/pages/BrandsProductPage';
+import { TestCasePage } from '../pages/TestCasePage';
 
 
 // Tip tanımı
@@ -18,6 +19,7 @@ type CustomFixtures = {
   loginPage: LoginPage;
   registerPage: RegisterPage;
   contactUsPage: ContactUsPage;
+  testCasePage: TestCasePage;
   productListingPage: ProductListingPage;
   productDetailingPage: ProductDetailingPage;
   cartPage: CartPage;
@@ -49,6 +51,7 @@ const test = baseTest.extend<CustomFixtures>({
   paymentPage: createFixture(PaymentPage),
   categoryProductsPage: createFixture(CategoryProductsPage),
   brandsProductsPage: createFixture(BrandsProductsPage),
+  testCasePage: createFixture(TestCasePage),
 });
 
 export { test, expect };

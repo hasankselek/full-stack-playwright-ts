@@ -59,5 +59,12 @@ export default defineConfig({
         video: 'off',
       },
     },
+    {
+      name: 'default',
+      use: {
+        ...devices['Desktop Chrome'],
+        tsconfigPath: './tsconfig.json',
+      },
+    },
   ],
 });
